@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>JS事件循环讲解 | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">JS事件循环讲解</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">August 7, 2019&nbsp;&nbsp;23:15:25</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/基础知识/">基础知识</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="本文讲什么"><a href="#本文讲什么" class="headerlink" title="本文讲什么?"></a>本文讲什么?</h3><p>伴随着JavaScript这种web浏览器脚本语言的普及，对它的事件驱动交互模型，以及它与Ruby、Python和Java中常见的请求-响应模型的区别有一个基本了解，对您是有益的。在这篇文章中，我将解释一些JavaScript并发模型的核心概念，包括其事件循环和消息队列，希望能够提升你对一种语言的理解，这种语言你可能已经在使用但也许并不完全理解。</p>
+<h3 id="这篇文章是写给谁的"><a href="#这篇文章是写给谁的" class="headerlink" title="这篇文章是写给谁的?"></a>这篇文章是写给谁的?</h3><p>这篇文章是针对在客户端或服务器端使用或计划使用JavaScript的web开发人员的。如果你已经精通事件循环，那么这篇文章的大部分对你来说会很熟悉。对于那些还不是很精通的人，我希望能给你提供一个基本的了解，这样可以更好地帮助你阅读和编写日常代码。</p>
+<h3 id="非阻塞I-O"><a href="#非阻塞I-O" class="headerlink" title="非阻塞I / O"></a>非阻塞I / O</h3><p>在JavaScript中，几乎所有的I/O都是非阻塞的。这包括HTTP请求，数据库操作和磁盘读写，单线程执行要求在运行期执行一个操作时，提供一个回调函数，然后继续做其它的事情。当操作已经完成时，消息和已提供的回调函数一起插入到队列。在将来的某个时候，消息从队列移除，回调函数触发。</p>
+<p>虽然这种交互模型可能对已经习惯使用用户界面的开发人员很熟悉，比如“mousedown,”和“click”事件在某一时刻被触发。这与通常在服务器端应用程序进行的同步式请求-响应模型是不同的。</p>
+<p>让我们来比较一下两小块代码，发出HTTP请求到<a href="http://www.google.com和输出响应到控制台。首先看看Ruby，配合使用Faraday（一个Ruby" target="_blank" rel="noopener">www.google.com和输出响应到控制台。首先看看Ruby，配合使用Faraday（一个Ruby</a> 的HTTP 客户端开发库）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = Faraday.get &apos;http://www.google.com&apos;</span><br><span class="line">puts response</span><br><span class="line">puts &apos;Done!&apos;</span><br></pre></td></tr></table></figure>
+
+<p>执行路径很容易跟踪:</p>
+<ol>
+<li>执行get方法，执行的线程等待，直到收到响应</li>
+<li>从谷歌收到响应并返回给调用者，它存储在一个变量中</li>
+<li>变量的值(在本例中，就是我们的响应)输出到控制台</li>
+<li>值“Done!“输出到控制台<br>让我们使用Node.js和Request库在JavaScript做同样的事情:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">request(&apos;http://www.google.com&apos;, function(error, response, body) &#123;</span><br><span class="line">  console.log(body);</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&apos;Done!&apos;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>表面上看略有不同,实际行为截然不同:</p>
+<ol>
+<li>执行请求函数，传递一个匿名函数作为回调，当响应在将来某个时候可用时执行回调。</li>
+<li>“Done!“立即输出到控制台</li>
+<li>在将来的某个时候，响应返回和回调执行时，输出它的内容到控制台</li>
+</ol>
+<h3 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h3><p>将调用者和响应解耦，使得JavaScript在运行期等待异步操作完成和回调触发时可以做其他事情。但是这些回调在内存中是如何组织的，按什么顺序执行？什么导致他们被调用？</p>
+<p>JavaScript运行时包含一个消息队列，它存储了需要处理的消息的列表和相关的回调函数。这些消息是以队列的形式来响应回调函数所涉及的外部事件(如鼠标单击或收到HTTP请求的响应)的。例如，如果用户单击一个按钮，但没有提供回调函数，那么也没有消息会被加入队列。</p>
+<p>在一次循环，队列提取下一条消息(每次提取称为一次“tick”)，当事件发生，该消息的回调执行。<br>[img]<br>回调函数的调用在调用栈作为初始化frame(片段)，由于JavaScript是单线程的，未来的消息提取和处理因为等待栈的所有调用返回而被停止。后续(同步)函数调用会添加新的调用frame到栈(例如，函数init调用函数changeColor)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function init() &#123;</span><br><span class="line">  var link = document.getElementById(&quot;foo&quot;);</span><br><span class="line">  link.addEventListener(&quot;click&quot;, function changeColor() &#123;</span><br><span class="line">    this.style.color = &quot;burlywood&quot;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">init();</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当用户单击“foo”元素时，一条消息(及其回调函数changeColor)会被插入到队列，并触发“onclick“事件。当消息离开队列时，其回调函数changeColor被调用。当changeColor返回(或者是抛出一个错误)，事件循环仍在继续。只要函数changeColor存在，并指定为“foo”元素的onclick方法的回调，那么在该元素上单击会导致更多的消息(和相关的回调changeColor)插入队列。</p>
+<h3 id="队列附加消息"><a href="#队列附加消息" class="headerlink" title="队列附加消息"></a>队列附加消息</h3><p>如果一个函数在代码中按异步调用(比如setTimeout)，提供的回调将最终作为一个不同的消息队列的一部分被执行，它将发生在事件循环的某个未来的动作上。例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function f() &#123;</span><br><span class="line">  console.log(&quot;foo&quot;);</span><br><span class="line">  setTimeout(g, 0);</span><br><span class="line">  console.log(&quot;baz&quot;);</span><br><span class="line">  h();</span><br><span class="line">&#125;</span><br><span class="line">function g() &#123;</span><br><span class="line">  console.log(&quot;bar&quot;);</span><br><span class="line">&#125;</span><br><span class="line">function h() &#123;</span><br><span class="line">  console.log(&quot;blix&quot;);</span><br><span class="line">&#125;</span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+
+<p>由于setTimeout的非阻塞特性，它的回调将在至少0毫秒后触发，而不是作为消息的一部分被处理。在这个示例中，setTimeout被调用， 传入了一个回调函数g且延时0毫秒后执行。当我们指定时间到达(当前情况是，几乎立即执行)，一个单独的消息将被加入队列（g作为回调函数）。控制台打印的结果会是像这样：“foo”，“baz”，“blix”，然后是事件循环的下一个动作:“bar”。如果在同一个调用片段中，两个调用都设置为setTimeout -传递给第二个参数的值也相同-则它们的回调将按照调用顺序插入队列。</p>
+<h3 id="Web-Workers"><a href="#Web-Workers" class="headerlink" title="Web Workers"></a>Web Workers</h3><p>使用Web Workers允许您能够将一项费时的操作在一个单独的线程中执行，从而可以释放主线程去做别的事情。worker（工作线程）包括一个独立的消息队列，事件循 环，内存空间独立于实例化它的原始线程。worker和主线程之间的通信通过消息传递，看起来很像我们往常常见的传统事件代码示例。<br>[img]</p>
+<p>首先，我们的worker:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// our worker, which does some CPU-intensive operation</span><br><span class="line">var reportResult = function(e) &#123;</span><br><span class="line">  pi = SomeLib.computePiToSpecifiedDecimals(e.data);</span><br><span class="line">  postMessage(pi);</span><br><span class="line">&#125;;</span><br><span class="line">onmessage = reportResult;</span><br></pre></td></tr></table></figure>
+
+<p>然后，主要的代码块在我们的HTML中以script-标签存在：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// our main code, in a &lt;script&gt;-tag in our HTML page</span><br><span class="line">var piWorker = new Worker(&quot;pi_calculator.js&quot;);</span><br><span class="line">var logResult = function(e) &#123;</span><br><span class="line">  console.log(&quot;PI: &quot; + e.data);</span><br><span class="line">&#125;;</span><br><span class="line">piWorker.addEventListener(&quot;message&quot;, logResult, false);</span><br><span class="line">piWorker.postMessage(100000);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，主线程创建一个worker，同时注册logResult回调函数到其“消息”事件。在worker里，reportResult函数注册到自己的“消息”事件中。当worker线程接收到主线程的消息，worker入队一条消息同时带上reportResult回调函数。消息出队时，一条新消息发送回主线程，新消息入队主线程队列(带上logResult回调函数)。这样，开发人员可以将cpu密集型操作委托给一个单独的线程，使主线程解放出来继续处理消息和事件。</p>
+<h3 id="关于闭包的"><a href="#关于闭包的" class="headerlink" title="关于闭包的"></a>关于闭包的</h3><p>JavaScript对闭包的支持，允许你这样注册回调函数，当回调函数执行时，保持了对他们被创建的环境的访问（即使回调的执行时创建了一个全新的调用栈）。理解我们的回调作为一个不同的消息的一部分被执行，而不是创建它的那个会很有意思。看看下面的例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function changeHeaderDeferred() &#123;</span><br><span class="line">  var header = document.getElementById(&quot;header&quot;);</span><br><span class="line">  setTimeout(function changeHeader() &#123;</span><br><span class="line">    header.style.color = &quot;red&quot;;</span><br><span class="line">    return false;</span><br><span class="line">  &#125;, 100);</span><br><span class="line">  return false;</span><br><span class="line">&#125;</span><br><span class="line">changeHeaderDeferred();</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，changeHeaderDeferred函数被执行时包含了变量header。函数 setTimeout被调用，导致消息(带上changeHeader回调)被添加到消息队列，在大约100毫秒后执行。然后 changeHeaderDeferred函数返回false，结束第一个消息的处理，但header变量仍然可以通过闭包被引用，而不是被垃圾回收。当 第二个消息被处理(changeHeader函数)，它保持了对在外部函数作用域中声明的header变量的访问。一旦第二个消息 (changeHeader函数)执行结束，header变量可以被垃圾回收。</p>
+<h3 id="提醒"><a href="#提醒" class="headerlink" title="提醒"></a>提醒</h3><p>JavaScript 事件驱动的交互模型不同于许多程序员习惯的请求-响应模型，但如你所见，它并不复杂。使用简单的消息队列和事件循环，JavaScript使得开发人员在构建他们的系统时使用大量asynchronously-fired（异步-触发）回调函数，让运行时环境能在等待外部事件触发的同时处理并发操作。然 而，这不过是并发的一种方法。在本文的第二部分中，我将对JavaScript的并发模型与MRI Ruby(线程和GIL)，EventMachine(Ruby)，Java(线程)进行比较。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2019/08/07/JS实践循环讲解/">https://lijingying91.github.io/2019/08/07/JS实践循环讲解/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Tech/"># Tech</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/08/07/高性能JS/">《高性能Javascript》读书笔记</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
