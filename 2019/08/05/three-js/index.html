@@ -442,15 +442,19 @@
     var gitment = new Gitment({
       id: decodeURI(window.location.pathname),
       theme: myTheme,
-      owner: theme.gitment.github_user,
-      repo: theme.gitment.github_repo,
+      owner: 'lijingying91',
+      repo: 'gitment-blog',
       oauth: {
-        client_id: theme.gitment.client_id,
-        client_secret: theme.gitment.client_secret
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
       }
     });
     gitment.render('container');
   }
+
+  // console.log(config)
+  // console.log(theme)
+  // console.log([object Object])
 
   showGitment();
 </script>
