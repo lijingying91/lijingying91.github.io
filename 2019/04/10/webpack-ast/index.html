@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>webpack-ast | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">webpack-ast</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 10, 2019&nbsp;&nbsp;18:02:44</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="1-抽象语法树（Abstract-Syntax-Tree）"><a href="#1-抽象语法树（Abstract-Syntax-Tree）" class="headerlink" title="1. 抽象语法树（Abstract Syntax Tree）"></a>1. 抽象语法树（Abstract Syntax Tree）</h1><p><code>webpack</code> 和 <code>Lint</code>等很多的工具和库的核心都是通过 <code>Abstract Syntax Tree</code> 抽象语法数这个概念来实现对代码的检查、分析等操作的。通过了解抽象语法数这个概念，你也可以随手编写类似的工具</p>
+<h1 id="2-抽象语法树用途"><a href="#2-抽象语法树用途" class="headerlink" title="2. 抽象语法树用途"></a>2. 抽象语法树用途</h1><ul>
+<li>代码语法的检查、代码风格的检查、代码的格式化、代码的高亮、代码错误提示、代码自动补全等等<ul>
+<li>如JSLint、JSHint对代码错误或风格的检查，发现一些潜在的错误</li>
+<li>IDE的错误提示、格式化、高亮、自动补全等等</li>
+</ul>
+</li>
+<li>代码混淆压缩<ul>
+<li>UglifyJS2等</li>
+</ul>
+</li>
+<li>优化变更代码，改变代码结构使达到想要的结构<ul>
+<li>代码打包工具webpack、rollup等等</li>
+<li>CommonJS、AMD、CMD、UMD等代码规范之间的转化</li>
+<li>CoffeeScript、TypeScript、JSX等转化为原生Javascript</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-抽象语法树定义"><a href="#3-抽象语法树定义" class="headerlink" title="3. 抽象语法树定义"></a>3. 抽象语法树定义</h1><p>这些工具的原理都是通过JavaScript Parser把代码转化为一颗抽象语法树（AST），这颗树定义了代码的结构，通过操纵这棵树，我们可以精准的走位到声明语句、赋值语句、运算语句等等，实现对代码的分析、优化、变更等操作</p>
+<blockquote>
+<p>在计算机科学中，抽象语法树（abstract syntax tree或者缩写为AST），或者语法树（syntax tree），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。</p>
+<p>Javascript的语法是为了给开发者更好的编程而设计的，但是不适合程序的理解。所以需要转化为AST来更适合程序分析，浏览器编译器一般会把源码转化为AST来进行进一步的分析等其他操作。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var AST = &quot;is Tree&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;: &quot;Program&quot;,</span><br><span class="line">  &quot;body&quot;: [&#123;</span><br><span class="line">    &quot;type&quot;: &quot;variableDeclaration&quot;,</span><br><span class="line">    &quot;kind&quot;: &quot;var&quot;,</span><br><span class="line">    &quot;declaration&quot;: [&#123;</span><br><span class="line">      &quot;type&quot;: &quot;VariableDeclarator&quot;,</span><br><span class="line">      &quot;id&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Identifier&quot;,</span><br><span class="line">        &quot;name&quot;: &quot;AST&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;init&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;Literal&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;is tree&quot;,</span><br><span class="line">        &quot;raw&quot;: &quot;\&quot;is Tree\&quot;&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-JavaScript-Parser"><a href="#4-JavaScript-Parser" class="headerlink" title="4. JavaScript Parser"></a>4. JavaScript Parser</h1><ul>
+<li>JavaScript Parser，把js源码转化为抽象语法树的解析器。</li>
+<li>浏览器会把js源码通过解析器转化为抽象语法树，再进一步转化为字节码或直接生成机器码。</li>
+<li>一般来说每个js引擎都会有自己的抽象语法树格式，Chrome的v8引擎，firefox的SpiderMonkey引擎等等，MDN提供了详细SpiderMonkey AST format的详细说明，算是业界的标准<h2 id="4-1-常用的JavaScript-Parser有："><a href="#4-1-常用的JavaScript-Parser有：" class="headerlink" title="4.1 常用的JavaScript Parser有："></a>4.1 常用的JavaScript Parser有：</h2></li>
+<li>esprima</li>
+<li>traceur</li>
+<li>acorn</li>
+<li>shift<h2 id="4-2-esprima"><a href="#4-2-esprima" class="headerlink" title="4.2 esprima"></a>4.2 esprima</h2></li>
+<li>通过 <code>esprima</code> 把源码转化为AST</li>
+<li>通过 <code>estraverse</code> 遍历并更新AST</li>
+<li>通过 <code>escodegen</code> 将AST重新生成源码</li>
+<li><a href="https://astexplorer.net/" target="_blank" rel="noopener">astexplorer</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">let estraverse = require(&apos;estraverse&apos;)</span><br><span class="line">let escodegen = require(&apos;escodegen&apos;)</span><br><span class="line">let code = &quot;function ast()&#123;&#125;&quot;;</span><br><span class="line">let ast = esprima.parse(code);</span><br><span class="line">console.log(&apos;ast&apos;, ast)</span><br><span class="line">estraverse.traverse(ast, &#123;</span><br><span class="line">  enter(node)&#123;</span><br><span class="line">    console.log(&apos;enter&apos;, node.type)</span><br><span class="line">    if (node.type === &apos;Identifier&apos;) &#123;</span><br><span class="line">      node.name += &apos;_enter&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  leave(node)&#123;</span><br><span class="line">    console.log(&apos;leave&apos;, node.type)</span><br><span class="line">    if (node.type === &apos;Identifier&apos;) &#123;</span><br><span class="line">      node.name += &apos;_leave&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&apos;ast&apos;, ast)</span><br><span class="line">let result = escodegen.generate(ast)</span><br><span class="line">console.log(&apos;result&apos;, result)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="5-转换箭头函数"><a href="#5-转换箭头函数" class="headerlink" title="5. 转换箭头函数"></a>5. 转换箭头函数</h1><ul>
+<li>访问者模式Visitor对于某个对象或者一组对象，不同的访问者，产生的结果不同，执行操作也不同</li>
+<li><a href="https://github.com/babel/babel" target="_blank" rel="noopener">babel-core</a></li>
+<li><a href="https://babeljs.io/docs/en/next/babel-types.html" target="_blank" rel="noopener">babel-types</a></li>
+<li><a href="https://github.com/brigand/babel-plugin-handbook/blob/master/translations/zh-Hans/README.md#asts" target="_blank" rel="noopener">Babel 插件手册</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// babel核心库，用来实现核心的转换引擎的</span><br><span class="line">let babel = require(&apos;babel-core&apos;)</span><br><span class="line">// 可以实现类型判断，生成ast零部件</span><br><span class="line">let types = require(&apos;babel-types&apos;)</span><br><span class="line"></span><br><span class="line">let code = `let sum = (a,b) =&gt;a+b` // let sum = function(a,b)&#123;return a+b&#125;</span><br><span class="line">// 这个访问者可以对特定的类型的节点进行处理</span><br><span class="line">let visitor = &#123;</span><br><span class="line">  ArrowFunctionExpression(path)&#123;</span><br><span class="line">    let params = path.node.params;</span><br><span class="line">    let blockStatement = types.blockStatement([</span><br><span class="line">      types.returnStatement(path.node.body)</span><br><span class="line">    ])</span><br><span class="line">    let func = types.functionExpression(null, params, blockStatement, false, false);</span><br><span class="line">    path.replaceWith(func);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let arrayPlugin = &#123;visitor&#125;</span><br><span class="line">// 在babel内部先把代码转成AST，然后在进行遍历，</span><br><span class="line">let result = babel.transform(code,&#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    arrayPlugin</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line">console.log(result.code)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="6-babel插件"><a href="#6-babel插件" class="headerlink" title="6. babel插件"></a>6. babel插件</h1><p>预计算简单表达式的插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const result = 1 + 2;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const result = 3;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">let code = `const result = 1 + 2`</span><br><span class="line">let babel = require(&apos;babel-core&apos;)</span><br><span class="line">let types = require(&apos;babel-types&apos;)</span><br><span class="line">// 预计算</span><br><span class="line">let visitor = &#123;</span><br><span class="line">  BinaryExpression(path)&#123;</span><br><span class="line">    let node = path.node;</span><br><span class="line">    if (!isNaN(node.left.value) &amp;&amp; !isNaN(node.right.value)) &#123;</span><br><span class="line">      let result = eval(node.left.value + node.operator + node.right.value)</span><br><span class="line">      result = types.numericLiteral(result)</span><br><span class="line">      path.replaceWith(result)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let result = babel.transform(code, &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    &#123;visitor&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line">console.log(result.code)</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-webpack-babel插件"><a href="#7-webpack-babel插件" class="headerlink" title="7. webpack babel插件"></a>7. webpack babel插件</h1><h2 id="7-1-实现按需加载"><a href="#7-1-实现按需加载" class="headerlink" title="7.1 实现按需加载"></a>7.1 实现按需加载</h2><ul>
+<li>Lodash<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123; join, flatten &#125; from &apos;ladash</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>转换为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import join from &quot;lodash/join&quot;</span><br><span class="line">import flatten from &quot;lodash/flatten&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-2-babel配置"><a href="#7-2-babel配置" class="headerlink" title="7.2 babel配置"></a>7.2 babel配置</h2><ul>
+<li><code>transform-runtime</code> Babel默认只转换新的 JavaScript 语法，而不是转换新的 API。例如，literator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转义，启用插件babel-plugin-transform-runtime后，Babel就会使用babel-runtime下的工具函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [&quot;react&quot;, &quot;stage-0&quot;, &quot;env&quot;],</span><br><span class="line">  &quot;plugins&quot;: [</span><br><span class="line">    [&quot;extract&quot;, &#123;&quot;library&quot;: &quot;lodash&quot;&#125;],</span><br><span class="line">    [&quot;transform-runtime&quot;, &#123;&#125;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>编译顺序为首先 <code>plugins</code> 从左往右，然后 <code>presets</code> 从右往左</p>
+</blockquote>
+<h2 id="7-3-babel插件"><a href="#7-3-babel插件" class="headerlink" title="7.3 babel插件"></a>7.3 babel插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">let babel = require(&apos;babel-core&apos;);</span><br><span class="line">let types = require(&apos;babel-types&apos;);</span><br><span class="line">//只会处理ImportDeclaration</span><br><span class="line">let visitor = &#123;</span><br><span class="line">    ImportDeclaration(path,ref=&#123;options:&#123;&#125;&#125;)&#123;</span><br><span class="line">        let node = path.node;</span><br><span class="line">        let specifiers = node.specifiers;</span><br><span class="line">        if(options.library == node.local.name &amp;&amp; !types.isImportDefaultSpecifier(specifiers[0]))&#123;</span><br><span class="line">            let newImports = specifiers.map(specifier=&gt;(</span><br><span class="line">                types.importDeclaration([types.ImportDefaultSpecifier(specifier.local)], </span><br><span class="line">                types.stringLiteral(`$&#123;node.source.value&#125;/$&#123;specifier.local.name&#125;`))</span><br><span class="line">            )); </span><br><span class="line">            path.replaceWithMultiple(newImports);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let code = &quot;import &#123;flatten,join&#125; from &apos;lodash&apos;;&quot;;</span><br><span class="line">let r = babel.transform(code,&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        &#123;visitor&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line">console.log(r.code);</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2019/04/10/webpack-ast/">https://lijingying91.github.io/2019/04/10/webpack-ast/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JS/"># JS</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/08/04/hello-world/">Hello World</a>
+            
+            
+            <a class="next" rel="next" href="/2018/08/12/node-express/">《Node与Express开发》读书笔记</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
