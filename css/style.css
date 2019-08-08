@@ -556,6 +556,26 @@ header label {
 .pagination .page-number.current:after {
   width: 60%;
 }
+.gitment_title {
+  width: 100%;
+  max-width: 780px;
+  margin: 40px auto 0;
+  padding-bottom: 10px;
+  color: #161209;
+  font-size: 2em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.gitment_container {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.gitment-comments-init-btn:disabled,
+.gitment-editor-submit:disabled {
+  color: rgba(255,255,255,0.75);
+  background-color: #1abc9c;
+  box-shadow: none;
+}
 .intro {
   transform: translateY(20vh);
   text-align: center;
@@ -1008,6 +1028,9 @@ header label {
   padding: 1rem 0 1rem;
   display: flex;
   justify-content: space-between;
+}
+.post-nav {
+  overflow: hidden;
 }
 .post-nav:before,
 .post-nav:after {
