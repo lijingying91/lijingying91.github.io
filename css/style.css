@@ -1029,13 +1029,11 @@ header label {
   display: flex;
   justify-content: space-between;
 }
-.post-nav {
-  overflow: hidden;
-}
 .post-nav:before,
 .post-nav:after {
   content: " ";
   display: table;
+  clear: both;
 }
 .post-nav a.prev,
 .post-nav a.next {
