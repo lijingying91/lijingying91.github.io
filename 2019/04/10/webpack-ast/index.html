@@ -352,10 +352,12 @@
   }
 
   function showGitment() {
+    // console.log("Wed Apr 10 2019 18:02:44 GMT+0800")
+    let _date = Date.parse("Wed Apr 10 2019 18:02:44 GMT+0800")
     // $("#gitment_title").attr("style", "display:none");
     $("#container").attr("style", "").addClass("gitment_container");
     var gitment = new Gitment({
-      id: Date.parse("Wed Apr 10 2019 18:02:44 GMT+0800"),
+      id: _date,
       theme: myTheme,
       owner: "lijingying91",
       repo: "lijingying91.github.io",
