@@ -375,18 +375,16 @@
   }
 
   function showGitment() {
-    // console.log("Wed Aug 07 2019 09:42:37 GMT+0800")
-    let _date = Date.parse("Wed Aug 07 2019 09:42:37 GMT+0800")
-    // $("#gitment_title").attr("style", "display:none");
+    $("#gitment_title").attr("style", "display:block");
     $("#container").attr("style", "").addClass("gitment_container");
     var gitment = new Gitment({
-      id: _date,
+      id: Date.parse('Wed Aug 07 2019 09:42:37 GMT+0800'),
       theme: myTheme,
-      owner: "lijingying91",
-      repo: "lijingying91.github.io",
+      owner: 'lijingying91',
+      repo: 'lijingying91.github.io',
       oauth: {
-        client_id: "7c8f8bbc6b2e2491a4e8",
-        client_secret: "6dcd6d348349921a69ec3ead4177ebaefaf55be9"
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
       }
     });
     gitment.render('container');
