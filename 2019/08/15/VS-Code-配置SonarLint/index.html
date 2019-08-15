@@ -200,15 +200,14 @@
 <li>团队中or个人已经部署了sonarqube，启动sonar server服务。记住sonar server服务中配置好的<code>projectKey</code>，后续会用到</li>
 <li>本文主要使用的是vscode的<code>SonarQube support for Visual Studio Code</code>插件</li>
 </ul>
-<h3 id="0-插件安装"><a href="#0-插件安装" class="headerlink" title="0. 插件安装"></a>0. 插件安装</h3><p>安装<code>VSCode</code>的<code>SonarQube support for Visual Studio Code</code>插件，如下图找到插件</p>
-<p><img src="/.io//sonarqube.png" alt="sonarqube插件下载"></p>
+<h3 id="0-插件安装"><a href="#0-插件安装" class="headerlink" title="0. 插件安装"></a>0. 插件安装</h3><p>安装<code>VSCode</code>的<code>SonarQube support for Visual Studio Code</code>插件，如下图找到插件<br><img src="/.io//sonarqube.png" alt="sonarqube插件下载"></p>
 <p>插件下载完成后输入<code>Ctrl + P</code> 打开Vscode命令搜索功能，输入<code>sonar</code>模糊查询到结果如下</p>
-<p><a href="config.png">sonar配置</a></p>
+<p><img src="/.io//config.png" alt="sonar配置"></p>
 <h3 id="1-配置"><a href="#1-配置" class="headerlink" title="1. 配置"></a>1. 配置</h3><ol>
 <li><p>sonarLint 全局配置</p>
 <ul>
 <li><p>选择 <code>Create global config with credentials to servers</code>, 弹出并打开 <code>global.json</code>文件</p>
-<p><a href="global.png">global.json</a></p>
+<p><img src="/.io//global.png" alt="global.json"></p>
 </li>
 <li><p><code>global.json</code> 文件打开如下，即sonarLint的全局配置文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;servers&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;localhost&quot;,</span><br><span class="line">      &quot;url&quot;: &quot;http://localhost:9000&quot;,</span><br><span class="line">      &quot;token&quot;: &quot;YOUR_SONARQUBE_AUTH_TOKEN&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;id&quot;: &quot;my-company-server&quot;,</span><br><span class="line">      &quot;url&quot;: &quot;http://my-company.com&quot;,</span><br><span class="line">      &quot;token&quot;: &quot;YOUR_SONARQUBE_AUTH_TOKEN&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -220,7 +219,7 @@
 <li><p>url:  sonar server 所在的地址</p>
 </li>
 <li><p>token: 能进入 sonar server 的用于验证用户身份的一串字符，下图是通过sonarqube如何生成<code>token</code>值</p>
-<p><a href="token.png">sonarqube-token</a></p>
+<p><img src="/.io//token.png" alt="sonarqube-token"></p>
 </li>
 </ul>
 </li>
@@ -238,7 +237,7 @@
 <li><p>serverId：即配置全局文件时的 id</p>
 </li>
 <li><p>projectKey：sonar server 上的工程唯一标识，即上文所说的server中每个任务的<code>projectKey</code>，如下图所示，在jenkins项目配置的例子</p>
-<p><a href="projectKey.png">projectKey</a></p>
+<p><img src="/.io//projectKey.png" alt="projectKey"></p>
 </li>
 </ul>
 </li>
@@ -247,9 +246,9 @@
 </ol>
 <hr>
 <p>至此配置完成，vscode编辑器能直接提醒出sonarqube上的报错信息，如图所示<br><code>sonarqube</code>的报错信息</p>
-<p><a href="sonarqube-error.png">sonarqube-error</a></p>
+<p><img src="/.io//sonarqube-error.png" alt="sonarqube-error"></p>
 <p>vscode上代码信息自动提示</p>
-<p><a href="vscode-error.png">vscode-error</a></p>
+<p><img src="/.io//vscode-error.png" alt="vscode-error"></p>
 <hr>
 <ol start="3">
 <li><p>其他sonarlint相关命令，即 <code>Ctrl+P</code> &gt; <code>&gt;soanr</code>后其余指令</p>
