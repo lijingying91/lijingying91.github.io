@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lijingying91.github.io/about/index.html</loc>
+    
+    <lastmod>2019-08-16T02:59:23.600Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://lijingying91.github.io/2019/08/15/vscode-sonarlint/</loc>
     
     <lastmod>2019-08-16T01:58:47.444Z</lastmod>
@@ -82,13 +89,6 @@
     <loc>https://lijingying91.github.io/2019/08/04/hello-world/</loc>
     
     <lastmod>2019-08-04T16:10:48.702Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lijingying91.github.io/about/index.html</loc>
-    
-    <lastmod>2019-08-04T16:10:24.015Z</lastmod>
     
   </url>
   
