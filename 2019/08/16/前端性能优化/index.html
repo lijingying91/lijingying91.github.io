@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta name="baidu-site-verification" content="qiktONbbSB">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>前端性能优化 | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">前端性能优化</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 16, 2019&nbsp;&nbsp;11:42:55</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/基础知识/">基础知识</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">近期组内小组成员进行的一篇基础知识，归纳较为全面，完善整理添加了一下分享出来，给需要的同学</span><br></pre></td></tr></table></figure>
+
+<h1 id="前端性能优化"><a href="#前端性能优化" class="headerlink" title="前端性能优化"></a>前端性能优化</h1><p>从一个基本问题说起：</p>
+<blockquote>
+<p>从输入 URL 到页面加载完成，发生了什么？</p>
+</blockquote>
+<ol>
+<li>DNS 解析</li>
+<li>TCP 连接（三次握手）</li>
+<li>HTTP 请求抛出</li>
+<li>服务端处理完请求，HTTP 响应返回</li>
+<li>浏览器拿到响应数据，解析并渲染，并等待响应用户操作</li>
+</ol>
+<p>笼统来讲，对于性能优化，就可以从这五个方面进行打磨：</p>
+<ol>
+<li>DNS解析太慢了，可以优化——浏览器DNS缓存和DNS预解析</li>
+<li>TCP 每次连接都会三次握手，浪费时间——可以长连接</li>
+<li>HTTP请求太慢了——可以减少请求次数/请求体积</li>
+<li>服务器响应太慢了——那说不定是因为资源服务器太远了，就可以考虑CDN</li>
+<li>到了浏览器层面——这就是前端可优化方案最多的地方了，服务端渲染、浏览器缓存机制的利用、异步加载JS、减少重排重绘、DOM 操作的合理规避、图片懒加载等等</li>
+</ol>
+<p>其中1-4属于网络层面的优化、第5点属于渲染层面的优化。</p>
+<h2 id="网络层面"><a href="#网络层面" class="headerlink" title="网络层面"></a>网络层面</h2><p>这部分的优化，需要代码的地方不多，主要是理解其中原理，部分需要服务端的配合。</p>
+<h3 id="DNS缓存："><a href="#DNS缓存：" class="headerlink" title="DNS缓存："></a>DNS缓存：</h3><blockquote>
+<p>关于DNS缓存，我举个形象的例子说明一下</p>
+<p>当我们在浏览器输入 <a href="https://mail.163.com/" target="_blank" rel="noopener">https://mail.163.com/</a> ，浏览器要做的第一件事就是解析域名，将其转为IP。</p>
+<ol>
+<li>浏览器会先检查浏览器缓存（浏览器缓存有大小和<code>时间</code>限制），时间过长可能导致IP地址变化，无法解析正确IP地址，过短就会让浏览器重复解析域名，一般为几分钟</li>
+<li>如果浏览器缓存没有对应域名，则会去操作系统缓存中查找。设置hosts文件，可以直接设置域名和IP的对应关系</li>
+<li>如果还没有找到，域名就会发送到本地区的域名服务器（一般由互联网供应商提供，电信、联通之类），一般在本地区的域名服务器上都能找到了</li>
+<li>当然也可能本地域名服务器也没找到，那本地域名服务器就开始递归查找（以 <a href="https://mail.163.com/" target="_blank" rel="noopener">https://mail.163.com/</a> 为例说明）</li>
+</ol>
+</blockquote>
+<p>一般而言，浏览器解析DNS需要20-120ms，因此DNS解析可优化之处几乎没有。但存在这样一个场景，网站有很多图片在不同域名下，那如果在登录页就提前解析了之后可能会用到的域名，使解析结果缓存过，这样缩短了DNS解析时间，提高网站整体上的访问速度了，这就是DNS预解析。以下为MDN上关于DNS预解析标签的说明：</p>
+<blockquote>
+<p><strong>X-DNS-Prefetch-Control</strong> 头控制着浏览器的 DNS 预读取功能。 DNS 预读取是一项使浏览器主动去执行域名解析的功能，其范围包括文档的所有链接，无论是图片的，CSS 的，还是 JavaScript 等其他用户能够点击的 URL。</p>
+</blockquote>
+<p>先简单看一下如何做到DNS预解析，</p>
+<ul>
+<li>在页面头部加入，这样浏览器对整个页面进行预解析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;on&quot;&gt;</span><br><span class="line">// off 则是关闭</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>或者通过link标签手动添加要解析的域名（可以看下淘宝首页），比如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;http://www.mail.163.com&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一些较好的实践方案：</p>
+<ul>
+<li>浏览器对超链接href里的域名，会自己进行预解析，因此不需要对超链接预解析</li>
+<li>可以对静态资源、js里写的会进行跳转的域名进行预解析</li>
+<li>登录页可以进行下一个页面上资源的DNS预解析</li>
+<li>因为<code>域名发散</code>，浏览器解析同一个域名下的请求有并发限制，因此过多同域下的预解析标签反而会影响性能</li>
+</ul>
+<h3 id="长连接和短连接："><a href="#长连接和短连接：" class="headerlink" title="长连接和短连接："></a>长连接和短连接：</h3><p>从HTTP/1.1开始，默认使用长连接，同时web服务器和主流浏览器都默认使用HTTP/1.1，因此在大多数请求的Response Headers都可以看到Connection: keep-alive。</p>
+<p>实际上，我们说到http长连接或http短连接，其实质上TCP的长连接或短连接。长连接的背后是在一定时间内（服务端设置），客户端和服务端的TCP连接通道建立后不会关闭。现代web页面大多拥有许多图片资源、js资源、css资源，如果不建立长连接，那么每次获取资源都需要进行TCP三次握手、四次挥手，耗时可想而知，而在长连接下，就可以在一定时间内，一直在同一条TCP连接中进行传输。</p>
+<p>当然长连接也有弊处，在高并发的场景下，服务器会保持很多条长连接，这会占用很多系统的资源，因此服务端可根据业务，修改keepalive_timeout的值，使得服务器压力在一个合理范围。</p>
+<h3 id="http请求："><a href="#http请求：" class="headerlink" title="http请求："></a>http请求：</h3><p>http请求是比较耗时的存在，同时浏览器有域名发散的规则，如果同域下http请求过多，必然会卡着（等待一部分资源请求到，再进行下一部分资源的请求）。所以要减少http请求，业界常用的方法有雪碧图、合并多个js脚本、css样式表为一个文件等等。</p>
+<p>以上是减少请求次数相关的，当然还有减小请求体积这一方案。</p>
+<p>我们开发过程中已经大量使用了减少体积这个方式了，当下最流行的webpack这一构建工具就是帮我们进行资源的压缩与合并（关于webpack的优化，篇幅较多，暂且不在这里讲述了）。</p>
+<p>除了代码的压缩，图片也是可以优化的资源，在雅虎军规和 Google 官方的最佳实践也都将图片优化列为前端性能优化必不可少的环节。 <a href="https://httparchive.org/reports/page-weight#bytesTotal" target="_blank" rel="noopener">HTTP-Archive</a> </p>
+<p>必须说一下图片的优化，常见的Web图片格式有 JPEG/JPG、PNG、WebP、Base64、SVG，根据业务场景细说一下优化方案。</p>
+<h4 id="JPEG-JPG"><a href="#JPEG-JPG" class="headerlink" title="JPEG/JPG"></a>JPEG/JPG</h4><ul>
+<li>有损压缩</li>
+<li>体积是小了很多</li>
+<li>不支持透明</li>
+</ul>
+<p>这种图片适用于轮播图、大背景图、商品卡片图片，因为这些大图用JPG能带来体积减少的好处，同时大图色彩较丰富，压缩后明显的色彩依旧明显，很难让人觉得图片模糊。电商网站banner基本都是JPG格式的。</p>
+<h4 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h4><ul>
+<li>无损压缩</li>
+<li>体积不小</li>
+<li>支持透明</li>
+</ul>
+<p>无损压缩，自然代表了图片质量很高，业内还有PNG-24的图片格式，图片效果就更好，但体积也更大，但一般都是用PNG-8。良好的实践，Logo（logo都模糊自然无法接受）、小图标、颜色单一的小卡片等。</p>
+<h4 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h4><p>SVG是矢量图，因此被无限放大也不会失真，图像质量很可靠。</p>
+<p>SVG可以写在代码里，当然设计出个SVG的图，ide打开就可以解析成代码，然后和普通html标签一样，放在html中就可以用了；也可以img标签的src引入svg路径，总的来说，使用挺灵活的。但SVG的渲染成本比较高，这是和性能背道而驰的。什么时候用，就看设计师是否非常关注图片质量了。</p>
+<h4 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h4><p>简单的说就是src里直接写一串编码或css里写，Base64 编码后，图片大小会膨胀为原文件的 4/3。因此若大图编码到 HTML 或 CSS 文件中，图片的体积会明显增加，减少了 HTTP 请求，却增加了更多的体积带来的性能开销，显然不是好的优化方案。<br>但是，在传输非常小的图片的时候，Base64 带来的文件体积膨胀、以及浏览器解析 Base64 的时间开销就会非常低，与它需要的 HTTP 请求开销相比，倒是一个不错的优化。可以在以下条件时候考虑Base64:</p>
+<ul>
+<li>图片的实际尺寸、大小很小</li>
+<li>图片的更新频率非常低（不需我们重复编码和修改文件内容，维护成本较低）</li>
+</ul>
+<h4 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h4><p>可以看一下官方介绍：</p>
+<blockquote>
+<p>与 PNG 相比，WebP 无损图像的尺寸缩小了 26％。在等效的 SSIM 质量指数下，WebP 有损图像比同类 JPEG 图像小 25-34％。 无损 WebP 支持透明度（也称为 alpha 通道），仅需 22％ 的额外字节。对于有损 RGB 压缩可接受的情况，有损 WebP 也支持透明度，与 PNG 相比，通常提供 3 倍的文件大小。</p>
+</blockquote>
+<p>反正就是特别好，但奈何浏览器兼容性还很低，不太适合用。</p>
+<p>可以看一下淘宝队webp的兼容性用法。前端判断浏览器是否支持，加载不同格式图片。</p>
+<h3 id="关于CDN"><a href="#关于CDN" class="headerlink" title="关于CDN"></a>关于CDN</h3><p>对前端而言，CDN的部署在工作中很少接触，但作为一个性能优化常被提到的词——CDN缓存，还是得了解清楚。</p>
+<blockquote>
+<p>CDN （Content Delivery Network，即内容分发网络）指的是一组分布在各个地区的服务器。这些服务器存储着数据的副本，因此服务器可以根据哪些服务器与用户距离最近，来满足数据的请求。 CDN 提供快速服务，较少受高流量影响。</p>
+</blockquote>
+<p>举个例子，假设服务器在杭州，北京用户访问，隔很远，肯定响应速度变慢，那在北京设置一台服务器，用户请求的资源拷贝一份到北京服务器，用户就近请求北京服务器，速度肯定上升了。同时，如果北京服务器没有这份资源，就会去杭州服务器要这个资源。</p>
+<p>因此CDN上存放着静态资源是不错的做法，比如JS、CSS、图片，但对于HTML页面，如果页面是需要服务端渲染的、JSP等，就不适合放在CDN，还有一些需要服务器权限判断的页面也不适合放在CDN。</p>
+<p>关于CDN本身的优化不是前端能单独完成的，需要后端一起讨论。</p>
+<ul>
+<li>举一个离前端近的优化点（淘宝例子）</li>
+</ul>
+<h2 id="浏览器-代码层面"><a href="#浏览器-代码层面" class="headerlink" title="浏览器/代码层面"></a>浏览器/代码层面</h2><p>上面四点上网络层面的，对照着1-4小点，而接下来的是前端能大展身手的浏览器层面的各种优化。</p>
+<h3 id="浏览器内核讲起"><a href="#浏览器内核讲起" class="headerlink" title="浏览器内核讲起"></a>浏览器内核讲起</h3><blockquote>
+<p>浏览器内核分成两部分：渲染引擎（Layout Engine 或者 Rendering Engine）和 JS 引擎。早期渲染引擎和 JS 引擎并没有十分明确的区分，但随着 JS 引擎越来越独立，内核也成了渲染引擎的代称。渲染引擎又包括了 HTML 解释器、CSS 解释器、布局、网络、存储、图形、音视频、图片解码器等等零部件。</p>
+</blockquote>
+<p>常见浏览器内核，Trident（IE）、Gecko（火狐）、Blink（Chrome、Opera）、Webkit（Safari）</p>
+<p><em>Chrome如今已经是Blink内核了，但Blink内核仍然是属于Webkit系</em></p>
+<p>简单讲述一下浏览器渲染过程（五个步骤）</p>
+<ul>
+<li>HTML 解释器：将 HTML 文档经过词法分析输出 DOM 树。</li>
+<li>CSS 解释器：解析 CSS 文档, 生成样式规则。</li>
+<li>图层布局计算模块：布局计算每个对象的精确位置和大小。</li>
+<li>视图绘制模块：进行具体节点的图像绘制，将像素渲染到屏幕上。</li>
+<li>JavaScript 引擎：编译执行 Javascript 代码。</li>
+</ul>
+<p>这里得提一下，在页面渲染完成后，如果插入一个新元素（比如table组件加一个tr），简单来说，浏览器会通过 CSS 引擎查 CSS 样式表，找到符合该元素的样式规则应用到这个元素上，然后再去绘制它。</p>
+<p>大概了解完页面渲染步骤后，就可以着手渲染方面的优化了。</p>
+<h3 id="CSS选择器优化"><a href="#CSS选择器优化" class="headerlink" title="CSS选择器优化"></a>CSS选择器优化</h3><p>1、首先CSS引擎查找，是从右向左匹配的，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.panel__table td &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>乍看会认为浏览器找.panel__table 再去找它下面的td</p>
+<p>实际上浏览器会遍历页面上每个td，再去确认这个td的父元素是不是.panel__table</p>
+<h5 id="优化方案："><a href="#优化方案：" class="headerlink" title="优化方案："></a>优化方案：</h5><ul>
+<li>通配符别用，这会去遍历所有元素</li>
+<li>选择器别嵌套的很复杂，用后代选择器开销是最高的，因此尽量用类关联元素</li>
+<li>少用标签选择器，比如上面可以写成 .panel__table-td</li>
+<li>尽量利用属性的继承特性</li>
+</ul>
+<h3 id="CSS属性优化"><a href="#CSS属性优化" class="headerlink" title="CSS属性优化"></a>CSS属性优化</h3><p>浏览器绘制图像时，CSS的计算也是耗费性能的，一些属性需浏览器进行大量的计算，属于昂贵的属性（box-shadows、border-radius、transforms、filters、opcity、:nth-child等），这些属性在日常开发中经常用到，所以并不是说不要用这些属性，而是在开发中，如果有其它简单可行的方案，那可以优先选择没有昂贵属性的方案，这样网站的性能就一点点不断提升了。</p>
+<h3 id="关于DOM"><a href="#关于DOM" class="headerlink" title="关于DOM"></a>关于DOM</h3><p>就如之前说的浏览器有渲染引擎和JS引擎，所以当用JS操作DOM时，这两个引擎要通过接口互相“交流”，因此每一次操作DOM（包括只是访问DOM的属性），都要进行引擎之间解析的开销，所以常说要减少DOM操作。</p>
+<p>典型反面教材：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(let i=0;i&lt;100;i++)&#123; </span><br><span class="line">  document.getElementById(&apos;container&apos;).innerHTML+=&apos;&lt;span&gt;加入元素&lt;/span&gt;&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 缓存dom</span><br><span class="line">let container = document.getElementById(&apos;container&apos;)</span><br><span class="line">let content = &apos;&apos;</span><br><span class="line">for(let i=0;i&lt;100;i++)&#123; </span><br><span class="line">  content += &apos;&lt;span&gt;加入元素&lt;/span&gt;&apos;</span><br><span class="line">&#125; </span><br><span class="line">// 修改一次</span><br><span class="line">container.innerHTML = content</span><br></pre></td></tr></table></figure>
+
+<p>核心思想：让JS给DOM分压。</p>
+<p>当然减少DOM操作不仅仅是因为引擎之间的开销，在改变DOM样式时候，浏览器都会有性能开销。</p>
+<ul>
+<li>重排：当对 DOM 的修改引发了 DOM 几何尺寸的变化（比如修改元素的宽、高或隐藏元素等）时，浏览器需要重新计算元素的几何属性（其他元素的几何属性和位置也会因此受到影响），然后再将计算的结果绘制出来。这个过程就是重排。</li>
+<li>重绘：当我们对 DOM 的修改导致了样式的变化、却并未影响其几何属性（比如修改了颜色或背景色）时，浏览器不需重新计算元素的几何属性、直接为该元素绘制新的样式（跳过了上图所示的回流环节）。这个过程叫做重绘。</li>
+</ul>
+<p>因此我们优化DOM的方案，自然就是减少重排重绘。</p>
+<p>先来看一下怎样会引发重排：</p>
+<ul>
+<li>页面第一次渲染 在页面发生首次渲染的时候，所有组件都要进行首次布局，这是开销最大的一次重排</li>
+<li>浏览器窗口尺寸改变</li>
+<li>元素位置和尺寸发生改变的时候 ！！！</li>
+<li>新增和删除可见元素 ！！</li>
+<li>内容发生改变（文字数量、大小或图片大小等等）！！！</li>
+<li>激活CSS伪类（例如：<code>:hover</code>）！！！</li>
+<li>查询某些属性或调用某些方法。比如说：offsetTop、scrollTop、clientTop、getComputedStyle() ！</li>
+</ul>
+<p>！！！这些都因为引起了DOM几何属性改变，此时，其周围的节点也需要重新计算几何属性（牵一发动全身），因此开销最大。</p>
+<p>！！改变DOM的结构，浏览器渲染顺序是从上到下，从左到右，因此通常增减一个DOM，不会影响其前面的元素，开销相对适中。</p>
+<p>！当获取这些属性时，浏览器为了数据准确、即时，此时如果需要重排，会立马重排（大多数情况）;如果此时不需要重排，根据不同浏览器决定会不会重排。</p>
+<h5 id="肯定要减少重排重绘"><a href="#肯定要减少重排重绘" class="headerlink" title="肯定要减少重排重绘"></a>肯定要减少重排重绘</h5><p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let dom = document.getElementById(&apos;contain&apos;)</span><br><span class="line">dom.style.width = &apos;300px&apos;</span><br><span class="line">dom.style.height = &apos;250px&apos;</span><br><span class="line"></span><br><span class="line">dom.style.border = &apos;2px solid red&apos;</span><br><span class="line">dom.style.backgroundColor = &apos;grey&apos;</span><br></pre></td></tr></table></figure>
+
+<p>重排四次？</p>
+<p>（此处看一下demo）</p>
+<p>这段代码，在不同浏览器，重排次数会不同，现代浏览器一般都有优化，思路类似于现在流行的MVVM框架使用的虚拟DOM，它内部缓存一个flush队列，把触发重排重绘的任务一一塞进去，等到任务达到一定量或者到了一定时间间隔，就进行一次更新。</p>
+<p>但有一些情况下（即时它是现代浏览器），这种优化会被打断，比如去获取元素的offsetTop、scrollTop、clientTop，使用getComputedStyle，浏览器为了保证返回最准确的结果，就必须先重排了。</p>
+<p>因此，这样的代码是很不可取的，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">el.style.left = el.offsetLeft + 20 + &quot;px&quot;;</span><br><span class="line">//立马会重排</span><br></pre></td></tr></table></figure>
+
+<p>（理论上是这样）</p>
+<p>虽然现代浏览器有优化，作为开发者不能保全任何浏览器都帮我们优化，所以良好的编码在今天依旧是最合理的方案。</p>
+<p>列举一些常见的优化思路，应该都很熟悉：</p>
+<ul>
+<li>我们大可不必一条条修改style，可以通过修改DOM的class集中改变样式</li>
+<li>对于计算属性，可以缓存在变量里，let left = el.offsetLeft</li>
+<li>对DOM的多个读操作或多个写操作，放在一起（避免写操作中夹在读操作）</li>
+<li>动画元素设置position:absolute或者fixed，来减少对其它元素的影响</li>
+<li>以及我们使用虚拟DOM框架开发，就是一种优化</li>
+</ul>
+<h3 id="关于JS"><a href="#关于JS" class="headerlink" title="关于JS"></a>关于JS</h3><p>对于js优化，有很多很多，甚至夸张到for循环、forEach、map等都有性能比较，但显然这种优化没什么大意义，代码的语义显然更重要。总不能为了性能，通篇写for循环，代码的可读性大大降低，得不偿失。</p>
+<p>关于JS语法方面的优化，其实可以称之为良好的规范，比如避免使用with、在多处使用的不变的值定义为const、避免定义全局变量、页面路由跳转时销毁setInterval的内容等等，因此一个良好的团队代码规范，是优化的一个好途径。比如我们现在css采用BEM规范，vue的是根据官网的推荐规范。</p>
+<h5 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h5><p>事件循环中的异步队列有两种：macro（宏任务）队列和 micro（微任务）队列。</p>
+<p>常见的 macro-task 比如： setTimeout、setInterval、 setImmediate、script（整体代码）、 I/O 操作、UI 渲染等。<br>常见的 micro-task 比如: process.nextTick、Promise 等。</p>
+<p>完整的 Event Loop 过程：</p>
+<ul>
+<li>此时JS准备执行，micro队列是空的，macro队列里只有script（整体代码）。</li>
+<li>开始执行macro队列，也就是js同步执行的开始，在执行过程中会产生macro任务和micro任务推到各自队列。比如执行遇到Promise、setTimeout。</li>
+<li>一个macro任务执行完，要去执行micro任务了，此时会把micro队列中全部任务都执行完，再去执行下一个macro任务。（macrorenew一个一个执行，micro任务一队一队执行的）</li>
+<li>执行渲染相关操作</li>
+</ul>
+<p>循环以上过程，直到队列空。</p>
+<p>（一个macro任务——一队micro任务——渲染）</p>
+<p>知道这些后，可以有这样一个优化思路，比如我想异步更新DOM，通常我们会这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123; // 进行一些dom修改 &#125;, 0)</span><br></pre></td></tr></table></figure>
+
+<p>那么实际上，这个setTimeout会被推入macro队列，然后执行micro队列的全部，走一波渲染。然后再去执行macro任务，也就是上面setTimeout里写的“dom修改操作”，再去渲染。</p>
+<p>所以这中间多了一次无效渲染，我们可以试着这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.resolve().then( //do something )</span><br></pre></td></tr></table></figure>
+
+<h5 id="Lazy-Load（大家都懂，简述，看demo）"><a href="#Lazy-Load（大家都懂，简述，看demo）" class="headerlink" title="Lazy-Load（大家都懂，简述，看demo）"></a>Lazy-Load（大家都懂，简述，看demo）</h5><p>淘宝的首屏加载策略（存loacl storage）</p>
+<h5 id="函数节流、函数防抖（这个基本大家也都懂，简要带一下）"><a href="#函数节流、函数防抖（这个基本大家也都懂，简要带一下）" class="headerlink" title="函数节流、函数防抖（这个基本大家也都懂，简要带一下）"></a>函数节流、函数防抖（这个基本大家也都懂，简要带一下）</h5><ul>
+<li>throttle优化debounce</li>
+</ul>
+<h3 id="缓存的利用"><a href="#缓存的利用" class="headerlink" title="缓存的利用"></a>缓存的利用</h3><p>（淘宝首页拿出来再看看 network size栏）</p>
+<p>浏览器请求资源时候，会按照</p>
+<ol>
+<li>Memory Cache</li>
+<li>Service Worker Cache</li>
+<li>HTTP Cache</li>
+<li>Push Cache</li>
+</ol>
+<p>这四个优先级进行缓存读取，若都没有，再去请求</p>
+<h4 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h4><p>存在内存中，自然速度最快，哪些文件会被浏览器存入内存，一般都是小资源，比如base64的图片，小的css、js，具体存哪些，看浏览器的决策。</p>
+<h4 id="Service-Worker-Cache"><a href="#Service-Worker-Cache" class="headerlink" title="Service Worker Cache"></a>Service Worker Cache</h4><p>要说service worker必须先说一下web worker。</p>
+<blockquote>
+<p>Web Worker 的作用，就是为 JavaScript 创造多线程环境，允许主线程创建 Worker 线程，将一些任务分配给后者运行。在主线程运行的同时，Worker 线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 Worker 线程负担了，主线程（通常负责 UI 交互）就会很流畅，不会被阻塞或拖慢。</p>
+<p>Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭。</p>
+</blockquote>
+<p>service worker其实就是web worker基础上，增加了对 请求 操作的api，可以进行下载资源之类，所以可利用这个实现离线存储之类。借助service worker下载的缓存就是service worker cache。</p>
+<h4 id="HTTP-Cache"><a href="#HTTP-Cache" class="headerlink" title="HTTP Cache"></a>HTTP Cache</h4><p>最熟悉的缓存方式，分为强缓存和协商缓存</p>
+<h5 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h5><p>expires（时间格式）</p>
+<p>Cache-Control（HTTP 1.1新增）</p>
+<p>图片资源请求返回头的截图</p>
+<p>关于s-maxage</p>
+<p>先判断s-maxage有没有失效，如果没失效就去请求代理服务器。</p>
+<p>当然也可以设置Cache-Control为no-cache，这样每次请求都不会去浏览器缓存找，都是直接去服务器找（走协商缓存），还可以设置为no-store，这样服务器端也不会有缓存相关策略。</p>
+<h5 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h5><p>协商缓存机制下，浏览器需要向服务器去询问缓存的相关信息，进而判断是重新发起请求、下载完整的响应，还是从本地获取缓存的资源。</p>
+<p>如果服务端提示缓存资源未改动（Not Modified），资源会被重定向到浏览器缓存，就是304状态码。</p>
+<p>具体操作就是：</p>
+<p>首次请求到资源response headers会有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">last-modified: Mon, 12 Aug 2019 14:00:29 GMT</span><br></pre></td></tr></table></figure>
+
+<p>之后，再请求该资源，会带上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: Mon, 12 Aug 2019 14:00:29 GMT</span><br></pre></td></tr></table></figure>
+
+<p>服务器根据两者是否一致进行完整资源返回，还是304。</p>
+<p>同样有一定弊端，比如，编辑了但实际没改动，也会算成新资源。</p>
+<p>Etag，对每个资源基于文件内容编码，生成一个唯一标识，思路和上面一样，只是换成判断这个唯一标识是否一致。但Etag生成需要服务端开销部分性能，因此具体用哪个需要根据项目实际判断。</p>
+<p>说了这些缓存相关的，目的是为了帮我们决定用哪种方式：</p>
+<p>当我们的资源内容不可复用时，直接为 Cache-Control 设置 no-store，拒绝一切形式的缓存；否则考虑是否每次都需要向服务器进行缓存有效确认，如果需要，那么设 Cache-Control 的值为 no-cache；然后考虑该资源的过期时间，设置对应的 max-age 和 s-maxage（有代理服务器的话） 值；最后，考虑配置协商缓存要用配 Etag还是Last-Modified 等参数。</p>
+<h4 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h4><p>是指在HTTP2在server push阶段存在的缓存，这个目前还没广泛应用，有兴趣可以去网上看看。</p>
+<h4 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h4><p>常用cookie、local storage、session storage，当然还有indexDB（如果真的需要存储大量数据时，ie6-9不支持）</p>
+<p>可以利用local storage存储base64格式图片</p>
+<p>session storage存储浏览记录，在页面关闭后，这些浏览记录没意义了，会自己释放</p>
+<h2 id="性能监测工具"><a href="#性能监测工具" class="headerlink" title="性能监测工具"></a>性能监测工具</h2><h4 id="performance"><a href="#performance" class="headerlink" title="performance"></a>performance</h4><h4 id="LightHouse"><a href="#LightHouse" class="headerlink" title="LightHouse"></a>LightHouse</h4><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>前端性能优化的点远不止这些，比如加载脚本用async还是defer，搞不搞服务端渲染，这些略过的原因有一部分是因为，知识点大家都熟悉的，还有一部分是我完全没实践过。我讲的这些可以当作优化思路的一些整理，可以在遇到性能问题时，从最上面说的1-5点思考一下哪里可以优化。当然，性能优化的理论再多再好，不投入实践，终究是纸上之词，可以在日常编码中多从原理思考优化方案，并付诸实践（既提升自己的能力、也能让项目实现的更好）。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2019/08/16/前端性能优化/">https://lijingying91.github.io/2019/08/16/前端性能优化/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>Hard Work</strong> Pays Off</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Tech/"># Tech</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/08/15/vscode-sonarlint/">VS Code 配置SonarLint</a>
+            
+        </section>
+
+
+    </article>
+
+    
+
+    
+        <div id="gitment_title" class="gitment_title">说些什么</div>
+<div id="container" style="display:none"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
+<script src="https://billts.site/js/gitment.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-Hans";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      // container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    }
+  }
+
+  function showGitment() {
+    $("#gitment_title").attr("style", "display:block");
+    $("#container").attr("style", "").addClass("gitment_container");
+    var gitment = new Gitment({
+      id: Date.parse('Fri Aug 16 2019 11:42:55 GMT+0800').toString(),
+      theme: myTheme,
+      owner: 'lijingying91',
+      repo: 'lijingying91.github.io',
+      oauth: {
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
+      }
+    });
+    gitment.render('container');
+  }
+
+  showGitment();
+</script>
+    
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
