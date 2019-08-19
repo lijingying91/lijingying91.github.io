@@ -195,7 +195,8 @@
         </header>
 
         <div class="post-content">
-            <h2 id="一、分支与角色说明"><a href="#一、分支与角色说明" class="headerlink" title="一、分支与角色说明"></a>一、分支与角色说明</h2><h3 id="Git-分支类型"><a href="#Git-分支类型" class="headerlink" title="Git 分支类型"></a>Git 分支类型</h3><ul>
+            <h2 id="一、分支与角色说明"><a href="#一、分支与角色说明" class="headerlink" title="一、分支与角色说明"></a>一、分支与角色说明</h2><p><strong>Git 分支类型</strong></p>
+<ul>
 <li><p>master 分支（主分支） 稳定版本</p>
 </li>
 <li><p>develop 分支（开发分支） 最新版本</p>
@@ -207,7 +208,8 @@
 <li><p>feature 分支（特性分支） 实现新特性</p>
 </li>
 </ul>
-<h3 id="Gitlab-角色与项目角色对应关系"><a href="#Gitlab-角色与项目角色对应关系" class="headerlink" title="Gitlab 角色与项目角色对应关系"></a>Gitlab 角色与项目角色对应关系</h3><ul>
+<p><strong>Gitlab 角色与项目角色对应关系</strong></p>
+<ul>
 <li><p>Owner（拥有者） Git 管理员</p>
 </li>
 <li><p>Master（管理员） 开发主管</p>
@@ -253,7 +255,8 @@
 <li><p>推荐使用 <code>feature</code> 分支，但 <code>feature</code> 分支的生命周期不能跨一次迭代</p>
 </li>
 </ul>
-<h2 id="六、发布测试环境（release分支）"><a href="#六、发布测试环境（release分支）" class="headerlink" title="六、发布测试环境（release分支）"></a>六、发布测试环境（release分支）</h2><h3 id="开发负责人需完成以下任务："><a href="#开发负责人需完成以下任务：" class="headerlink" title="开发负责人需完成以下任务："></a>开发负责人需完成以下任务：</h3><ol>
+<h2 id="六、发布测试环境（release分支）"><a href="#六、发布测试环境（release分支）" class="headerlink" title="六、发布测试环境（release分支）"></a>六、发布测试环境（release分支）</h2><p><strong>开发负责人需完成以下任务：</strong></p>
+<ol>
 <li><p>确认要发布的feature 分支上的功能是否开发完毕并提交</p>
 </li>
 <li><p>创建release 分支（发布分支），将所有要发布的分支逐个合并到release分支，有如下情况：</p>
@@ -272,7 +275,8 @@
 </li>
 </ol>
 <h2 id="七、修复待发布版本中的Bug（feature分支）"><a href="#七、修复待发布版本中的Bug（feature分支）" class="headerlink" title="七、修复待发布版本中的Bug（feature分支）"></a>七、修复待发布版本中的Bug（feature分支）</h2><p>如果发现bug，开发人员在 <code>feature</code> 分支上修复测试人员提交给自己的bug，修复完成后，由负责人再次创建 <code>release</code> 分支，发布测试环境。</p>
-<h2 id="八、发布正式环境"><a href="#八、发布正式环境" class="headerlink" title="八、发布正式环境"></a>八、发布正式环境</h2><h3 id="开发负责人需完成以下任务：-1"><a href="#开发负责人需完成以下任务：-1" class="headerlink" title="开发负责人需完成以下任务："></a>开发负责人需完成以下任务：</h3><ol>
+<h2 id="八、发布正式环境"><a href="#八、发布正式环境" class="headerlink" title="八、发布正式环境"></a>八、发布正式环境</h2><p><strong>开发负责人需完成以下任务：</strong></p>
+<ol>
 <li><p>根据修复后的 <code>release</code> 分支再次将 <code>master</code> 合并，打包发布生产环境</p>
 </li>
 <li><p>确认发布成功，并线上验收通过后，将 <code>release</code> 分支合并到 <code>master</code> 分支</p>
@@ -282,7 +286,8 @@
 <li><p>删除对应 <code>release</code> 分支</p>
 </li>
 </ol>
-<h2 id="九、修复线上Bug（hotfix分支）"><a href="#九、修复线上Bug（hotfix分支）" class="headerlink" title="九、修复线上Bug（hotfix分支）"></a>九、修复线上Bug（hotfix分支）</h2><h3 id="线上的不同版本出现了bug怎么办？开发负责人需完成以下任务："><a href="#线上的不同版本出现了bug怎么办？开发负责人需完成以下任务：" class="headerlink" title="线上的不同版本出现了bug怎么办？开发负责人需完成以下任务："></a>线上的不同版本出现了bug怎么办？开发负责人需完成以下任务：</h3><ol>
+<h2 id="九、修复线上Bug（hotfix分支）"><a href="#九、修复线上Bug（hotfix分支）" class="headerlink" title="九、修复线上Bug（hotfix分支）"></a>九、修复线上Bug（hotfix分支）</h2><p><strong>线上的不同版本出现了bug怎么办？开发负责人需完成以下任务：</strong></p>
+<ol>
 <li><p>从 <code>master</code> 分支某个 <code>tag</code> 上创建一个 <code>hotfix</code> 分支（热修复分支），一般是最新的 <code>tag</code> 应该和当前生产环境对应</p>
 <ul>
 <li>命名规则：<code>hotfix/分支创建日期-bug名称和待发布版本号</code>，例如：<code>hotfix/20181220-仓库添加新字段v1.0.1</code></li>
@@ -308,7 +313,7 @@
 <li><p>所以切换分支的时候，暂存区只有一个，所以切换分支之前，一定要将所有修改commit到当前分支，否则会在其他分支看到修改的内容，引起误解。</p>
 </li>
 </ul>
-<h4 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h4><ul>
+<h3 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h3><ul>
 <li><p><a href="https://www.cnblogs.com/imyalost/p/9301732.html" target="_blank" rel="noopener">Git分支管理规范</a></p>
 </li>
 <li><p><a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">阮一峰-Git分支管理策略（带git命令）</a></p>
