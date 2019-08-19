@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta name="baidu-site-verification" content="qiktONbbSB">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Git分支管理规范 | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Git分支管理规范</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 24, 2018&nbsp;&nbsp;14:18:17</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/工具配置/">工具配置</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="一、分支与角色说明"><a href="#一、分支与角色说明" class="headerlink" title="一、分支与角色说明"></a>一、分支与角色说明</h2><h3 id="Git-分支类型"><a href="#Git-分支类型" class="headerlink" title="Git 分支类型"></a>Git 分支类型</h3><ul>
+<li><p>master 分支（主分支） 稳定版本</p>
+</li>
+<li><p>develop 分支（开发分支） 最新版本</p>
+</li>
+<li><p>release 分支（发布分支） 发布新版本</p>
+</li>
+<li><p>hotfix 分支（热修复分支） 修复线上Bug</p>
+</li>
+<li><p>feature 分支（特性分支） 实现新特性</p>
+</li>
+</ul>
+<h3 id="Gitlab-角色与项目角色对应关系"><a href="#Gitlab-角色与项目角色对应关系" class="headerlink" title="Gitlab 角色与项目角色对应关系"></a>Gitlab 角色与项目角色对应关系</h3><ul>
+<li><p>Owner（拥有者） Git 管理员</p>
+</li>
+<li><p>Master（管理员） 开发主管</p>
+</li>
+<li><p>Developer（开发者） 开发人员</p>
+</li>
+<li><p>Reporter（报告者） 测试人员</p>
+</li>
+<li><p>Guest（观察者） 其他人员</p>
+</li>
+</ul>
+<h2 id="二、分支简明使用流程"><a href="#二、分支简明使用流程" class="headerlink" title="二、分支简明使用流程"></a>二、分支简明使用流程</h2><ol>
+<li><p>每开发一个新功能，创建一个 <code>feature</code> 分支，从当前的 <code>master</code> 分支上拉取，多人在此分支上开发。</p>
+</li>
+<li><p>提测时，将 <code>master</code> 分支和需要提测的分支汇总到一个 <code>release</code> 分支，发布测试环境。</p>
+</li>
+<li><p>发现bug时，在 <code>feature</code> 分支上debug后，再次回到2。</p>
+</li>
+<li><p>发布生产环境后，将 <code>release</code> 分支合并到 <code>master</code> 分支，删除 <code>release</code> 分支。</p>
+</li>
+</ol>
+<h2 id="三、创建新项目（master分支）"><a href="#三、创建新项目（master分支）" class="headerlink" title="三、创建新项目（master分支）"></a>三、创建新项目（master分支）</h2><ul>
+<li><p>开发主管提交代码初始版本到 <code>master</code> 分支，并推送至Gitlab系统</p>
+</li>
+<li><p>开发主管在 Gitlab 系统中设置master 分支为 Protectd 分支（保护分支）</p>
+</li>
+<li><p>Protected 分支不允许 Developer 角色推送代码，但 Master 角色可以推送代码</p>
+</li>
+</ul>
+<h2 id="四、进行项目开发（develop分支）"><a href="#四、进行项目开发（develop分支）" class="headerlink" title="四、进行项目开发（develop分支）"></a>四、进行项目开发（develop分支）</h2><ul>
+<li><p>开发主管在 <code>master</code> 分支上创建 <code>develop</code> 分支（开发分支），并推送至Gitlab系统</p>
+</li>
+<li><p><code>master</code> 分支与 <code>develop</code> 分支一样，有且仅有一个</p>
+</li>
+<li><p>对于非并行项目可以使用 <code>develop</code> 分支开发方式，对于多人并行开发项目，使用 <code>feature</code> 分支开发方式，但 <code>develop</code> 和 <code>feature</code> 开发方式不应同时使用 (注意：目前项目暂时使用 <code>feature</code> 分支开发方式)</p>
+</li>
+</ul>
+<h2 id="五、开发新特性（feature分支）"><a href="#五、开发新特性（feature分支）" class="headerlink" title="五、开发新特性（feature分支）"></a>五、开发新特性（feature分支）</h2><ul>
+<li><p>每个新需求或新的研究创建一个 <code>feature</code> 分支</p>
+</li>
+<li><p>命名规范：<code>feature/分支创建日期-新特性关键字</code>，例如：<code>feature/20181220-catering</code></p>
+</li>
+<li><p>推荐使用 <code>feature</code> 分支，但 <code>feature</code> 分支的生命周期不能跨一次迭代</p>
+</li>
+</ul>
+<h2 id="六、发布测试环境（release分支）"><a href="#六、发布测试环境（release分支）" class="headerlink" title="六、发布测试环境（release分支）"></a>六、发布测试环境（release分支）</h2><h3 id="开发负责人需完成以下任务："><a href="#开发负责人需完成以下任务：" class="headerlink" title="开发负责人需完成以下任务："></a>开发负责人需完成以下任务：</h3><ol>
+<li><p>确认要发布的feature 分支上的功能是否开发完毕并提交</p>
+</li>
+<li><p>创建release 分支（发布分支），将所有要发布的分支逐个合并到release分支，有如下情况：</p>
+<ul>
+<li><p><code>feature</code> 分支（可能有多个）</p>
+</li>
+<li><p><code>master</code> 分支（期间可能有其他 <code>release</code> 版本更新到了 <code>master</code>）</p>
+</li>
+</ul>
+</li>
+<li><p>命名规则：<code>release/分支创建日期-新特性和待发布版本号</code>，例如：<code>release/20181220-餐饮管理v1.0.0</code>，版本可根据需要添加</p>
+</li>
+<li><p>删除本次发布的所有 <code>feature</code> 分支</p>
+</li>
+<li><p>发布到测试环境，通知测试</p>
+</li>
+</ol>
+<h2 id="七、修复待发布版本中的Bug（feature分支）"><a href="#七、修复待发布版本中的Bug（feature分支）" class="headerlink" title="七、修复待发布版本中的Bug（feature分支）"></a>七、修复待发布版本中的Bug（feature分支）</h2><p>如果发现bug，开发人员在 <code>feature</code> 分支上修复测试人员提交给自己的bug，修复完成后，由负责人再次创建 <code>release</code> 分支，发布测试环境。</p>
+<h2 id="八、发布正式环境"><a href="#八、发布正式环境" class="headerlink" title="八、发布正式环境"></a>八、发布正式环境</h2><h3 id="开发负责人需完成以下任务：-1"><a href="#开发负责人需完成以下任务：-1" class="headerlink" title="开发负责人需完成以下任务："></a>开发负责人需完成以下任务：</h3><ol>
+<li><p>根据修复后的 <code>release</code> 分支再次将 <code>master</code> 合并，打包发布生产环境</p>
+</li>
+<li><p>确认发布成功，并线上验收通过后，将 <code>release</code> 分支合并到 <code>master</code> 分支</p>
+</li>
+<li><p>在 <code>master</code> 分支上创建标签，命名规则：<code>tag/日期-新特性和版本号</code>，例如：<code>tag/20181220-cateringv1.0.0</code>，版本可根据需要添加，作为发版里程碑标记</p>
+</li>
+<li><p>删除对应 <code>release</code> 分支</p>
+</li>
+</ol>
+<h2 id="九、修复线上Bug（hotfix分支）"><a href="#九、修复线上Bug（hotfix分支）" class="headerlink" title="九、修复线上Bug（hotfix分支）"></a>九、修复线上Bug（hotfix分支）</h2><h3 id="线上的不同版本出现了bug怎么办？开发负责人需完成以下任务："><a href="#线上的不同版本出现了bug怎么办？开发负责人需完成以下任务：" class="headerlink" title="线上的不同版本出现了bug怎么办？开发负责人需完成以下任务："></a>线上的不同版本出现了bug怎么办？开发负责人需完成以下任务：</h3><ol>
+<li><p>从 <code>master</code> 分支某个 <code>tag</code> 上创建一个 <code>hotfix</code> 分支（热修复分支），一般是最新的 <code>tag</code> 应该和当前生产环境对应</p>
+<ul>
+<li>命名规则：<code>hotfix/分支创建日期-bug名称和待发布版本号</code>，例如：<code>hotfix/20181220-仓库添加新字段v1.0.1</code></li>
+</ul>
+</li>
+<li><p>开发人员完成Bug 修复，提交 <code>hotfix</code> 分支到测试环境验收通过</p>
+</li>
+<li><p>再次发布正式环境流程</p>
+</li>
+<li><p>将 <code>hotfix</code> 分支合并到 <code>master</code> 分支</p>
+</li>
+<li><p>在 <code>master</code> 分支上创建标签</p>
+<ul>
+<li>命名规则：<code>tag/日期-新特性和版本号</code>，例如：<code>tag/20181220-cateringv1.0.0</code>，版本可根据需要添加，作为发版里程碑标记</li>
+</ul>
+</li>
+<li><p>删除 <code>hotfix</code> 分支</p>
+</li>
+</ol>
+<h2 id="十、Git-的特别注意事项"><a href="#十、Git-的特别注意事项" class="headerlink" title="十、Git 的特别注意事项"></a>十、Git 的特别注意事项</h2><ul>
+<li><p>由于 git 分支是基于指针的概念，所以分支速度非常快，当多个分支时，实际指针指向的是同一个文件，当文件被修改时，使用的是暂存区保存修改，此时并未提交到相应分支。</p>
+</li>
+<li><p>所以切换分支的时候，暂存区只有一个，所以切换分支之前，一定要将所有修改commit到当前分支，否则会在其他分支看到修改的内容，引起误解。</p>
+</li>
+</ul>
+<h4 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h4><ul>
+<li><p><a href="https://www.cnblogs.com/imyalost/p/9301732.html" target="_blank" rel="noopener">Git分支管理规范</a></p>
+</li>
+<li><p><a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">阮一峰-Git分支管理策略（带git命令）</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2018/12/24/Git分支管理规范/">https://lijingying91.github.io/2018/12/24/Git分支管理规范/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>Hard Work</strong> Pays Off</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/配置/"># 配置</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/04/10/webpack-ast/">webpack-ast</a>
+            
+            
+            <a class="next" rel="next" href="/2018/08/12/node-express/">《Node与Express开发》读书笔记</a>
+            
+        </section>
+
+
+    </article>
+
+    
+
+    
+        <div id="gitment_title" class="gitment_title">说些什么</div>
+<div id="container" style="display:none"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
+<script src="https://billts.site/js/gitment.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-Hans";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      // container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    }
+  }
+
+  function showGitment() {
+    $("#gitment_title").attr("style", "display:block");
+    $("#container").attr("style", "").addClass("gitment_container");
+    var gitment = new Gitment({
+      id: Date.parse('Mon Dec 24 2018 14:18:17 GMT+0800').toString(),
+      theme: myTheme,
+      owner: 'lijingying91',
+      repo: 'lijingying91.github.io',
+      oauth: {
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
+      }
+    });
+    gitment.render('container');
+  }
+
+  showGitment();
+</script>
+    
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
