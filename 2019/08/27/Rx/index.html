@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta name="baidu-site-verification" content="qiktONbbSB">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Rx  | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Rx </h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 27, 2019&nbsp;&nbsp;17:10:34</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Rxjs-intro"><a href="#Rxjs-intro" class="headerlink" title="Rxjs [intro]"></a>Rxjs [intro]</h1><h3 id="The-ReactiveX-library-for-Javascript"><a href="#The-ReactiveX-library-for-Javascript" class="headerlink" title="The ReactiveX library for Javascript"></a>The ReactiveX library for Javascript</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">今天我要分享(讲)的是 Rxjs, Rxjs 全称是 The ReactiveX library for Javascript, 大家可以看到有一个单词叫 ReactiveX，ReactiveX 它不是一个标准的英语单词对吧, 因为什么呢, 有 Reactive Java, 有 Reactive Scala， 有 Reactive Javascript, 所以得话呢，我们统称称为 ReactiveX，然后今天不会去深究它的原理， 主要是做一个 introduction level 的一个东西.</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>what is reactiveX</p>
+</li>
+<li><p>rxjs core</p>
+</li>
+<li><p>design patterns</p>
+</li>
+<li><p>rxjs in action</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ok, 我要讲的是这几个大方面, 第一个是 what is reactiveX, 第二个是 rxjs core 也就是 rxjs 的组成部分, 第三个是设计模式 design patterns, 第四个是如何在项目中去使用 rxjs - 第五个是 Q&amp;A question and answer 环节</span><br></pre></td></tr></table></figure>
+
+<h1 id="reactive-programming"><a href="#reactive-programming" class="headerlink" title="reactive programming"></a>reactive programming</h1><ol>
+<li><center>too many version of explanation</center>
+
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ok， emm， 第一个 so, what is reactivex, 在网上有非常多的版本的 explanation, 有非常多的版本不同的解释。因为像这种人为定义出来的概念的话，每个人可以有每个人不同的理解对吧，所以网上有非常多不同版本的解释。</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><center>an idea and a breakthrough</center>
+
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后呢, 通俗一点讲我们可以认为他是一种 idea, a breakthrough 是一种突破性编程的一种理念。</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><center>An API for asynchronous programming observable streams</center>
+
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">然后呢你可以理解它为一种 An API for asynchronous programming observable streams, 虽然说这句话就几个单词但是包含了很多程序基础性的名词，首先 API， 我们每天都在用 API，I 是指 interface, 是指接口，是指使用方和业务方之间的一个接口，我提供给你的接口。 那么 rxjs 呢就可以被看做为一种接口，认为成一种开发接口， 他是为了什么呢， asynchronous programming, 异步编程。然后异步呢</span><br><span class="line">--- 待补充 ---</span><br><span class="line">异步其实可以用英文来解释, 异步是 asynchrous，就是 synchrous 前面加一个 a 对吧，a 的话呢，在英语中一般代表的是反面， 所以我们不具体的说 asynchrous 是什么，而是说同步的反面就是异步，因为异步的话其实范畴还比较广， 很难精确的去解释。然后后面几个单词是 observable streams, observable 是指可被观测的对吧, streams 是指流。 那么就是说 rxjs 做的事情就是提供一个接口来处理异步环境下的一个可被观测的流。</span><br></pre></td></tr></table></figure>
+
+<h1 id="EcoSystem"><a href="#EcoSystem" class="headerlink" title="EcoSystem"></a>EcoSystem</h1><ol>
+<li><center>We use ReactiveX
+![We use ReactiveX](https://i.loli.net/2018/10/07/5bb9a81bc7463.png)</center>
+
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后我来介绍一下 ecosystem，在网上的话有几个 emm， 几大著名的公司都在使用 rx.js  有 github, microsoft, airbnb, netflix 等等。在某次公开课上, 我也得知了网易部分项目中也使用了 rxjs。包括现在 angular， 大家知道现在 angular2, angular3, angular4 都是采用 rxjs 就是做他的一个，就是整个框架层面的一个 api 嵌入。</span><br></pre></td></tr></table></figure>
+
+<h1 id="Rxjs"><a href="#Rxjs" class="headerlink" title="Rxjs"></a>Rxjs</h1><center>The ReactiveX library for Javascript</center>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// emit 1, 2, 3, 4, 5</span></span><br><span class="line"><span class="keyword">const</span> source = Rx.Observable.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment">// take the first emitted value then complete</span></span><br><span class="line"><span class="keyword">const</span> example = source.take(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// output: 1</span></span><br><span class="line"><span class="keyword">const</span> subscribe = example.subscribe(<span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">console</span>.log(val))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ok, 那我们来看一下 rxjs 这个东西到底是什么东西，我们应该怎么样去使用他呢我们先看一个简单的一个栗子。 emm，这边说实话，就是大家在看这段代码的时候，因为我不知道你们之前有没有了解或接触过 rxjs，所以今天大家看的时候，不要给自己一些限制，就先根据自己的经验和英文来去看一下这些东西，可以看到第一段代码是 Rx dot Observable dot of dot 12345 对吧, 他代表的意思（假如说我们之前都完全没有接触过 rxjs 的话）我们单纯的去理解英文单词这句话是啥意思呀，是一个 observable点of, of 代表什么什么的对吧, 所以我们用英文来解释的话, 就相当于这是一个 observervle（观察得到的，应遵守的，应庆祝的），他的数据是什么呢, 是 12345。 就先这么理解就好， 我们先不管它里面做了什么事情。</span><br><span class="line">好，第二个程序语句是 const example 等于 source dot take1 什么意思呢，这句话上面有一行注释(annotation) take the first emmited value then complete 他什么意思呢? 就是说这个 source 它抛出来一个值之后就结束了， 就什么都不干了, 大家直观的这么理解一下就好了。先不去要去 care 它里面具体是怎么实现的</span><br><span class="line">好， 第三句话是 subscribe 等于 example dot subscribe value console dot log value 对吧,</span><br><span class="line">这是一个, 这是一个订阅, 顾名思义 subscribe 是订阅，什么意思呢就是说,我在 example 的基础上我去订阅, 就是说你抛出什么值, 我就做什么事情, 这边做的事情是 console dot log 就打印一个 1。</span><br><span class="line">就这么简单哈~ 就这么简单。 在这里面哈, 我说明白这三句话要做啥事情了么, 知道做什么事情就好, 我们先不深究它内部实现。ok, 先不要管 take, subscibe 到底干了啥。 就先了解三句话可以得到什么结果就好。</span><br><span class="line">这段代码就让大家先感性的去理解, 大家 rxjs 的代码基本上写起来有一个套路， 就是说， 生成一个 observable 的东西， 然后呢我去订阅它, 就是说你抛什么值 我就做什么事情。 先这样感性的理解一下哈。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typingObservable.subscribe(<span class="function">(<span class="params">typingStatuses</span>) =&gt;</span> store.dispatch(createTypingStatusChageAction(typingStatuses)))</span><br><span class="line"></span><br><span class="line">typingObservable.debounceTime(<span class="number">5000</span>).subscribe(<span class="function"><span class="params">()</span> =&gt;</span> store.dispatch(createTypingStatusChageAction(typingStatuses)))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">大家在使用微信的过程中, 有一个对方正在输入的功能，如果让我们来写一下的话, 大家有什么想法~ 是不是可以 我这边输入的时候， emm 前端界面显示的时候， 如果说对方抛过来一个事件， ‘我正在输入’, 我这边就显示正在输入, 对吧, 好, 那么抛过来的这个事件, 如果说可靠一点的话, 比如说等个 5s ，如果你不再触发这个事件了, 我就要在界面上把这个 ui 取消掉， 好, 我时间不断地抛, 不断地抛， 不断地抛, 好我们在处理这种情况的话, 是不是可能会采用一个东西叫 debounce。 这是一个常用于 滚动加载时的辅助函数。</span><br><span class="line">--- 可以拓展 ---</span><br></pre></td></tr></table></figure>
+
+<h1 id="EcoSystem-技术生态"><a href="#EcoSystem-技术生态" class="headerlink" title="EcoSystem 技术生态"></a>EcoSystem 技术生态</h1><p><img src="https://i.loli.net/2018/10/07/5bb9b90e4986b.png" alt="EcoSystem 技术生态"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">好, ok， 在我们前端范围的话呢, 使用了 rxjs 的库主要有 angularjs, redux-observable 和 cycle.js</span><br></pre></td></tr></table></figure>
+
+<h1 id="rxjs-core"><a href="#rxjs-core" class="headerlink" title="rxjs core"></a>rxjs core</h1><ol>
+<li>Observable</li>
+<li>Observer</li>
+<li>Subscription</li>
+<li>Subject</li>
+<li>Operators</li>
+<li>Scheduler</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">emm， 这些是 rxjs 的基本组成部分, Observable, Observer, Subscription, subject, Operators,</span><br><span class="line">Scheduler, emm, 还是老样子, 大家先感性理解一下哈。</span><br></pre></td></tr></table></figure>
+
+<h1 id="design-patterns"><a href="#design-patterns" class="headerlink" title="design patterns"></a>design patterns</h1><ol>
+<li><p>Observer pattern</p>
+</li>
+<li><p>Iterator pattern</p>
+</li>
+<li><p>functional programming</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">然后, 接下来是与 rxjs 相关的几个设计模式, 在更进一步的去介绍 rxjs 之前, 需要先稍稍提下这几个设计模式。 第一个观察者模式。 观察者模式的话, 顾名思义，就是去观测一个东西对吧, 比如说我 input 输入的时候, 我要去同步的拉取一个东西， 可以采用观察者模式去做一些个性化的处理。</span><br><span class="line">那么总结一个小情景: 我们可以使用这个模式去监听一个对象的变化, 一旦对象发生变化, 就调用你提供的函数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  id: <span class="number">0</span>,</span><br><span class="line">  name: <span class="string">'guakun'</span>,</span><br><span class="line">  title: <span class="string">'front-end developer'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateGreeting</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  user.greeting = <span class="string">`Hello, <span class="subst">$&#123;user.title&#125;</span>-<span class="subst">$&#123;user.name&#125;</span>!`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">updateGreeting()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 已被废弃</span></span><br><span class="line"><span class="built_in">Object</span>.observe(user, (changes) =&gt; &#123;</span><br><span class="line">  changes.forEach(<span class="function">(<span class="params">change</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (change.name === <span class="string">'name'</span> || change.name === <span class="string">'title'</span>) &#123;</span><br><span class="line">      updateGreeting()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 proxy 的写法</span></span><br><span class="line"><span class="keyword">let</span> userProxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(user, &#123;</span><br><span class="line">  <span class="keyword">set</span>: (obj, prop, value) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (prop === <span class="string">'name'</span> || prop.name === <span class="string">'title'</span>) &#123;</span><br><span class="line">      obj[prop] = value</span><br><span class="line">      updateGreeting()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://jsbin.com/xarolefuge/1/edit?js,console" target="_blank" rel="noopener">demo</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">第二个, Iterator pattern， 这个模式好像在开发， 或者学习中出现的频次较低， 很少去提及这个模式。 但其实, 在 rxjs 中, 包括 es6 里面这种 Iterator pattern 这种 遍历器(迭代器模式)模式是非常常见的. 比如数组的 forEach， 和 map，我们感性的理解， 在取值的时候就是指针从第一个，指向第二个, 再指向下一个， 这样依次的指下去对吧~ 实际迭代器模式也可以这样理解。 其实我们在遍历数组的时候内部的逻辑用的就是迭代器(遍历器)模式,</span><br><span class="line">如何在 rxjs 里面理解 Iterator pattern 呢? 在rxjs 里面，在 api 设计方面，他往外抛值的时候, 都是某某某 dot 点 next 点 next 这样不断地往外抛值。就有点像去根据下标去遍历一个数组的过程。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeIterator</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> nextIndex = <span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    next: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> nextIndex &lt; array.length ?</span><br><span class="line">        &#123;<span class="attr">value</span>: array[nextIndex++], <span class="attr">done</span>: <span class="literal">false</span>&#125; :</span><br><span class="line">        &#123;<span class="attr">done</span>: <span class="literal">true</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> it = makeIterator([<span class="string">'a'</span>, <span class="string">'b'</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> t = it.next()</span><br><span class="line"><span class="keyword">while</span>(!t.done) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'it.next'</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(t.value)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'it.done'</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(t.done)</span><br><span class="line">  t = it.next()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://jsbin.com/qigasubaga/edit?js,console" target="_blank" rel="noopener">demo</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">那么迭代器模式我们就可以看作是，就是你可以用 .next() API 来「依次」访问下一项。（next只是一个函数名而已，可以随意约定）</span><br></pre></td></tr></table></figure>
+
+<h1 id="两种模式的区别"><a href="#两种模式的区别" class="headerlink" title="两种模式的区别"></a>两种模式的区别</h1><p>假设 A 是一个迭代器，那么 B 可以主动使用 A.next() 来要求 A 产生变化。（B主动要求A变化）<br>假设 B 是一个观察者，在观察着 A，那么 A 一旦变化，A 就会主动通知 B。（A变化之后B被动接收通知）</p>
+<p>或者这么说：在观察者模式里，被观察的人在迭代观察者（调用观察者的一个函数）。<br>再说清楚一点：观察者就是一个迭代器，被观察的人一旦有变化，就会调用观察者的一个函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user .on change</span><br><span class="line">    observer.next()</span><br></pre></td></tr></table></figure>
+
+<p>只不过，观察者永远可以 .next()，不会结束。而迭代器是会结束的，即返回 {done: true}。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">好，第三个， 他的设计模式叫做 function programming, 也是相对而言在前端比较火的一个概念，</span><br><span class="line">但是也很难完完全全去定义 function programming 到底是一个什么东西对吧, 一般而言的话呢, 我们可以认为他是一个， 首先他是一个 pure function， pure 在这个前端的理解里面的话, 我们可以认为他是, 因为一个 function 最主要的是两块东西，一个是入参, 一个是出参对吧~ 输入的参数是什么, 输出的参数是什么, 这是我们一个 function 最重要的东西， 他其实, 比如说我们使用 underscore 或者 lodash 这种库的时候, 我们根本不 care 它里面的具体实现是什么, 我们只 care 我们给你什么参数, 你能给我什么样的结果, 对吧. 在 function programming 中也有这样的要求, 第一个就是同样的入参要有同样的出参，这是一个具体的要求。 这是一个基本的要求, 就是 pure， p u r e, pure function 一个最基本的要求。 然后第二个, 就是你传进来的参数不会被进行任何修改。好比， 你传进来一个对象，你不用担心这个对象被函数增加了一个属性等等...这是 rxjs 主要涉及到的几个方面, 为什么涉及到这几个方面呢,  第一个是因为, rxjs 这个库的定位是用来处理数据, 大部分场景是用来处理异步的数据，那， 首先你必须保证的一点是, 我传过来的对象你不能去动他，对吧， 我传过来出来之后，我的对象被你增加了一个 key， 或者删除了一个 key， 这是完完全全不能够容忍的。所以这边， function programming 是一个基本的要求。第二个的话呢, 我不断的抛值出来, 因为事件的话, 很多异步模型是不能够一次将数据完完全全给你的(比如 post 数据块)所以存在数据很多次导出的情况，所以我才用 Iterator pattern 的形式将值以这种遍历的形式导出来。第一个 Observer pattern 的话呢，是因为你这是一个异步的行为，所以我不能使用同步的代码来捕获你所有的值, 所以使用 Iterator pattern 来观测你每一个异步的数据流, 这是它为什么这么设计的一些简单的原因</span><br></pre></td></tr></table></figure>
+
+<h1 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h1><center>Sample usage</center>
+
+<h1 id="sample-usage"><a href="#sample-usage" class="headerlink" title="sample usage"></a>sample usage</h1><ol>
+<li>create Observable</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">observer</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span></span><br><span class="line">  setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    observer.next(<span class="string">'hi'</span> + i)</span><br><span class="line">    i++</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Executing Observables<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> observer = &#123;</span><br><span class="line">  next: <span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">console</span>.log(val),</span><br><span class="line">  error: <span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.error(err),</span><br><span class="line">  complete: <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'complete'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observable.subscribe(observer)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><a href="https://jsbin.com/lijezemecu/edit?html,js,console" target="_blank" rel="noopener">demo1</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">demo 时间~</span><br><span class="line">demo 的话, 我们简单来看一下吧，一个简单的使用方式哈, 首先我们要使用 rxjs 的话呢我们要创建两个东西，第一个是创建一个可观测的流, 第二个是去使用它。就这么简单。 第一个, 我创建一个流。创建一个流是什么呢，setInterval 每一秒钟去抛出一个值, 大家可以看到这个 api 设计，每一秒钟怎么抛出来的，是通过 observer dot next 去把它抛出来的, next 实际上就是 Iterator pattern 里面的一个 api 设计里面的一个, 就相当于 keyword</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ok, 接下来的话呢，我生成一个 observable 之后, 我要去使用它，对吧, 我去 executing observables, 这边我生成一个观察者的对象, 这个对象是什么呢, 首先你抛出来的值我用 next 对应的函数来去捕获他, 你抛出来的错误我用 error 来处理他, 你结束之后我用 complete 来处理他.然后我做的事情就是在 creating observable 的基础上我去 dot subscribe observer 这样就完成了一个简单的 rxjs 的使用方式。</span><br><span class="line"></span><br><span class="line">相当于说, 上面的一个是不断地去把值抛出来, 下面的一个是不断去拿到值去处理你的 error 和 去处理你的值</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.zhihu.com/question/24927450" target="_blank" rel="noopener">尤雨溪对 forEach、map、filter 的解释</a><br></p>
+<ol start="4">
+<li>concatAll(这不是一个标准的 api， 但是我们有办法去实现它)<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; [ [<span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [], [<span class="number">4</span>] ].concatAll()</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">首先来看几个 api, 一定都不陌生吧~</span><br></pre></td></tr></table></figure>
+
+<p>用这几个 API 我们可以做一些 amazing 的事情，在 Netflix 我们主要向用户展示一些好看的剧集。</p>
+<p>我们需要展示评分最高的剧集给用户。能不能用上面的操作做到呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> getTopRatedFilms = <span class="function"><span class="params">user</span> =&gt;</span></span><br><span class="line">    user.videoLists</span><br><span class="line">        .map( <span class="function"><span class="params">videoList</span> =&gt;</span></span><br><span class="line">            videoList.videos</span><br><span class="line">                .filter( <span class="function"><span class="params">video</span> =&gt;</span> video.rating === <span class="number">5.0</span>)</span><br><span class="line">        ).concatAll()</span><br><span class="line"></span><br><span class="line">getTopRatedFilms(currentUser)</span><br><span class="line">    .forEach(<span class="function"><span class="params">film</span> =&gt;</span> <span class="built_in">console</span>.log(film) )</span><br></pre></td></tr></table></figure>
+
+<p>好，如果我现在告诉你，一个拖曳操作能用类似的代码实现，你相信吗？<br>你肯定在心里想：这不可能！</p>
+<p>是时候展示真正的技术了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> getElemenetDrags = <span class="function"><span class="params">el</span> =&gt;</span></span><br><span class="line">    el.mouseDowns</span><br><span class="line">        .map( <span class="function"><span class="params">mouseDown</span> =&gt;</span></span><br><span class="line">            <span class="built_in">document</span>.mouseMoves</span><br><span class="line">                .takeUntil(<span class="built_in">document</span>.mouseUps)</span><br><span class="line">        )</span><br><span class="line">        .concatAll()</span><br><span class="line"></span><br><span class="line">getElementDrags(div)</span><br><span class="line">    .forEach(<span class="function"><span class="params">position</span> =&gt;</span> img.position = position )</span><br></pre></td></tr></table></figure>
+
+<h1 id="Array-V-S-Event"><a href="#Array-V-S-Event" class="headerlink" title="Array V.S. Event"></a>Array V.S. Event</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>: [ &#123;<span class="attr">x</span>:<span class="number">1</span>,<span class="attr">y</span>:<span class="number">1</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">2</span>, <span class="attr">y</span>:<span class="number">2</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">10</span>,<span class="attr">y</span>:<span class="number">10</span>&#125; ]</span><br><span class="line">Event: &#123;<span class="attr">x</span>:<span class="number">1</span>,<span class="attr">y</span>:<span class="number">1</span>&#125; ... &#123;<span class="attr">x</span>:<span class="number">2</span>, <span class="attr">y</span>:<span class="number">2</span>&#125; ... &#123;<span class="attr">x</span>:<span class="number">10</span>, <span class="attr">y</span>:<span class="number">10</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数组和事件，有啥区别？<br>他们都是 collection（数据集、集合）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">事件 数组 他们都是 collection（数据集、集合）。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Observable"><a href="#Observable" class="headerlink" title="Observable"></a>Observable</h2><blockquote>
+<p>Observable = Collections + Time</p>
+</blockquote>
+<h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><p>Observable 可以表示</p>
+<ul>
+<li>事件</li>
+<li>数据请求</li>
+<li>动画</li>
+</ul>
+<p>而且可以方便的把这三种东西组合起来，因此，异步操作变得很简单。</p>
+<p>将事件转化为 Observable 的 API 很简单</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="keyword">var</span> mouseDowns = Observable.fromEvent(element, <span class="string">'mouseDown'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>之前我们是如何操作事件的？——监听（或者叫做订阅）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 订阅或监听</span></span><br><span class="line"><span class="keyword">let</span> handler = <span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">console</span>.log(e)</span><br><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'mousemove'</span>, handler)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消订阅或去掉监听</span></span><br><span class="line"><span class="built_in">document</span>.removeEventListener(<span class="string">'mousemove'</span>, handler)</span><br></pre></td></tr></table></figure>
+
+<p>有了 rxjs 之后 现在我们怎么对事件进行操作呢？——forEach</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 订阅</span></span><br><span class="line"><span class="keyword">let</span> subscription = mouseMoves.forEach(<span class="function"><span class="params">e</span> =&gt;</span> <span class="built_in">console</span>.log(e) )</span><br><span class="line"><span class="comment">// 取消订阅</span></span><br><span class="line">subscription.dispose()</span><br></pre></td></tr></table></figure>
+
+<h2 id="map-operator"><a href="#map-operator" class="headerlink" title="map operator"></a><center>map operator</center></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// emit</span></span><br><span class="line"><span class="keyword">const</span> source = Rx.Observable.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="comment">// add 10 to each value</span></span><br><span class="line"><span class="keyword">const</span> example = source.map(<span class="function"><span class="params">val</span> =&gt;</span> val + <span class="number">10</span>)</span><br><span class="line"><span class="comment">// out put: 11, 12, 13, 14, 15</span></span><br><span class="line"><span class="keyword">const</span> subscribe = example.subscribe(<span class="function"><span class="params">val</span> =&gt;</span> <span class="built_in">console</span>.log(val))</span><br></pre></td></tr></table></figure>
+
+<h2 id="debounceTime-operator"><a href="#debounceTime-operator" class="headerlink" title="debounceTime operator"></a><center>debounceTime operator</center></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> input = <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>)</span><br><span class="line"><span class="keyword">const</span> example = Rx.Observable</span><br><span class="line">  .fromEvent(input, <span class="string">'keyup'</span>)</span><br><span class="line">  .map(<span class="function">(<span class="params">i: any</span>) =&gt;</span> i.currentTarget.value)</span><br><span class="line">example.debounceTime(<span class="number">500</span>).subscribe(<span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Debounced input: <span class="subst">$&#123;val&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="how"><a href="#how" class="headerlink" title="how?"></a><center>how?</center></h1><h3 id="Concepts-gt-opeators-observers-observables-subject-subscription-schedule…"><a href="#Concepts-gt-opeators-observers-observables-subject-subscription-schedule…" class="headerlink" title="Concepts ==&gt; opeators + observers + observables + subject + subscription + schedule…"></a>Concepts ==&gt; opeators + observers + observables + subject + subscription + schedule…</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">第一次接触 Rxjs ， 听到这估计要头大了... 一堆概念... observable, observers, subscribe...</span><br></pre></td></tr></table></figure>
+
+<h1 id="Rxjs-Marble-diagram-宝珠图"><a href="#Rxjs-Marble-diagram-宝珠图" class="headerlink" title="Rxjs Marble diagram (宝珠图)"></a>Rxjs Marble diagram (宝珠图)</h1><p>为了跟清楚地阐述如何使用 forEach/map/filter/takeUntil/concatAll 等 API 来操作 Observable 对象，我现在发明一种新的语法：</p>
+<p><img src="/2019/08/27/Rx/%E5%AE%9D%E7%8F%A0%E5%9B%BE.jpg" alt="1"></p>
+<p>这个语法的规则是</p>
+<ol>
+<li>{1…2} 表示这个对象会一开始发射一个1，一段时间后发射一个2</li>
+<li>{1…2……3}表示发射1，一段时间后发射2，两段时间后发射3（也就是说 … 表示一段时间，…… 表示两段时间）</li>
+</ol>
+<h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; &#123;<span class="number">1.</span>....<span class="number">.2</span>...........<span class="number">.3</span>&#125;.forEach(<span class="built_in">console</span>.log)</span><br><span class="line"><span class="number">1</span></span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line"><span class="number">2</span></span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; &#123;<span class="number">1.</span>....<span class="number">.2</span>...........<span class="number">.3</span>&#125;.map(<span class="function"><span class="params">x</span>=&gt;</span>x+<span class="number">1</span>)</span><br><span class="line"><span class="number">2</span></span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line"><span class="number">3</span></span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; &#123;<span class="number">1.</span>....<span class="number">.2</span>...........<span class="number">.3</span>&#125;.filter(<span class="function"><span class="params">x</span>=&gt;</span>x&gt;<span class="number">1</span>)</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line"><span class="number">2</span></span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line">一段时间后</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="concatAll"><a href="#concatAll" class="headerlink" title="concatAll"></a>concatAll</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...&#123;<span class="number">1</span>&#125;</span><br><span class="line">    ......&#123;<span class="number">2.</span>................<span class="number">.3</span>&#125;</span><br><span class="line">    ............&#123;&#125;</span><br><span class="line">    ..................&#123;<span class="number">4</span>&#125;</span><br><span class="line">&#125;.concatAll()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    ..<span class="number">.1</span>..<span class="number">.2</span>.................<span class="number">.3</span>..<span class="number">.4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二个例子"><a href="#第二个例子" class="headerlink" title="第二个例子"></a>第二个例子</h1><p><img src="/2019/08/27/Rx/example2.png" alt="第二个例子"><br>这个 demo 的难点有两个：</p>
+<ol>
+<li><p>如果用户依次输入 abcdef，请问你应该发送几个请求？答案是用函数防抖，发一次请求。</p>
+</li>
+<li><p>如果用户输入 a，然后 300 毫秒后输入 b，那么你会发两个请求，一个请求查询 a 相关的热词，一个请求查询 ab 相关的热词，你能保证这两个请求响应的顺序吗？答案是不能。（竞态问题）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> search =</span><br><span class="line">    keyPresses</span><br><span class="line">        .debounce(<span class="number">250</span>) <span class="comment">// 原文是 throttle，但我个人认为原文写错了，我已经在 Twitter 上询问了演讲者，尚未得到回复</span></span><br><span class="line">        .map(<span class="function"><span class="params">key</span> =&gt;</span></span><br><span class="line">            getJSON(<span class="string">'/search?q='</span> + input.value)</span><br><span class="line">                .retry(<span class="number">3</span>)</span><br><span class="line">                .takeUntil(keyPresses)</span><br><span class="line">        )</span><br><span class="line">        .concatAll()</span><br><span class="line">search.forEach(</span><br><span class="line">    results =&gt; updateUI(results),</span><br><span class="line">    error =&gt; showMessage(error)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="operators-Core-concepts"><a href="#operators-Core-concepts" class="headerlink" title="operators [Core concepts]"></a>operators [Core concepts]</h1><h3 id="An-Operator-is-function-which-creates-a-new-Observable-based-on-the-current-Observable"><a href="#An-Operator-is-function-which-creates-a-new-Observable-based-on-the-current-Observable" class="headerlink" title="An Operator is function which creates a new Observable based on the current Observable."></a>An Operator is function <br>which creates a new Observable based on the current Observable.</h3><h3 id="this-is-a-pure-operation-the-previous-Observable-stays-unmodified"><a href="#this-is-a-pure-operation-the-previous-Observable-stays-unmodified" class="headerlink" title="this is a pure operation: the previous Observable stays unmodified"></a>this is a pure operation: the previous Observable stays unmodified</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiplyByTen</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> output = Rx.Observable.create(<span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">observer</span>) </span>&#123;</span><br><span class="line">    input.subscribe(&#123;</span><br><span class="line">      next: <span class="function">(<span class="params">v</span>) =&gt;</span> observer.next(<span class="number">10</span> * v),</span><br><span class="line">      error: <span class="function">(<span class="params">err</span>) =&gt;</span> observer.error(<span class="number">10</span> * v),</span><br><span class="line">      complete: <span class="function"><span class="params">()</span> =&gt;</span> observer.complete()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> output</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> input = Rx.Observable.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="keyword">var</span> output = multiplyByTen(input)</span><br><span class="line">output.subscribe(<span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'x'</span> + x))</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://jsbin.com/qotosijiva/edit?js,console" target="_blank" rel="noopener">demo2</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ok 这边的话，再提几句，稍微介绍一下 rxjs 里的 operator, 在 rxjs 里面，一个 operator 就是一个函数, 这函数做的事情是什么么, 他创建一个 observable, 并且这个 observable 是根据 上一个 observable 创建出来的, 然后因为他是一个纯粹的操作，这边又看到了关键词 pure, p u r e，是一个纯粹的操作, 纯粹的操作要求是你的入参是不变的，所以前面一个 observable 是不会做任何的修改。</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference-and-tutorial"><a href="#Reference-and-tutorial" class="headerlink" title="Reference and tutorial"></a>Reference and tutorial</h1><p><a href="https://zhuanlan.zhihu.com/p/34481617" target="_blank" rel="noopener">方方</a></p>
+<p>Async JavaScript at Netflix by Jafar Husain: <a href="https://www.youtube.com/watch?v=XRYN2xt11Ek" target="_blank" rel="noopener">https://www.youtube.com/watch?v=XRYN2xt11Ek</a></p>
+<p>知乎教程: <a href="https://zhuanlan.zhihu.com/p/23331432" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23331432</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2019/08/27/Rx/">https://lijingying91.github.io/2019/08/27/Rx/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>Hard Work</strong> Pays Off</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/08/16/前端性能优化/">前端性能优化</a>
+            
+        </section>
+
+
+    </article>
+
+    
+
+    
+        <div id="gitment_title" class="gitment_title">说些什么</div>
+<div id="container" style="display:none"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
+<script src="https://billts.site/js/gitment.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-Hans";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      // container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    }
+  }
+
+  function showGitment() {
+    $("#gitment_title").attr("style", "display:block");
+    $("#container").attr("style", "").addClass("gitment_container");
+    var gitment = new Gitment({
+      id: Date.parse('Tue Aug 27 2019 17:10:34 GMT+0800').toString(),
+      theme: myTheme,
+      owner: 'lijingying91',
+      repo: 'lijingying91.github.io',
+      oauth: {
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
+      }
+    });
+    gitment.render('container');
+  }
+
+  showGitment();
+</script>
+    
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
