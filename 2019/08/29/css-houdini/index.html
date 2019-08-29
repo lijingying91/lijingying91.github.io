@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta name="baidu-site-verification" content="qiktONbbSB">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>CSS Houdini | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">CSS Houdini</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 29, 2019&nbsp;&nbsp;17:15:51</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/基础知识/">基础知识</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>让我们来看看一个 HTML 文档从被浏览器接收到显示在屏幕上的全过程，下面这张图里被标为蓝色的部分就是 JavaScript 可以染指的环节了：</p>
+<p><img src="/2019/08/29/css-houdini/image1.png" alt="image1"></p>
+<p>我们根本控制不了浏览器解析 HTML 和 CSS 的过程，只能看着它生成 DOM 和 CSS object model (CSSOM)。没法控制级联（cascade）、没法控制浏览器布局元素的方式（layout）、也没法控制元素在屏幕上显示的过程（paint）、最后的合成（composite）也无能为力。</p>
+<p>整个过程中，开发者能完全控制的唯一环节就是 DOM，另外 CSSOM 也可以部分控制到。即使如此，引用 Houdini 官网上的话来说，这种程度的暴露是“不确定的、兼容性不稳定的以及缺乏对关键特性的支持的”。</p>
+<p>举个例子，浏览器中的 CSSOM 是不会告诉你它是如何处理跨源的样式表的，而且对于浏览器无法解析的 CSS 语句它的处理方式就是不解析了，也就是说——如果你要用 CSS polyfill 让浏览器去支持它尚且不支持的属性，那就不能在 CSSOM 这个环节做，只能自行解析一遍 DOM 树，找到 <code>&lt;style&gt;</code> 和 <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> 标签，获取其中的 CSS 样式、解析、重写，最后再加回 DOM 树中。</p>
+<p>如果你想要浏览器做出它本来做不到事情（比如让它解析你给的样式，不管它能不能实现该样式），而渲染流程里你无法插手其他步骤，所以只能通过手动更新和改变 DOM 的方式。</p>
+<p>“干涉”浏览器解析样式的目的:</p>
+<ul>
+<li>统一跨浏览器行为</li>
+<li>开发新特性或者给新特性打补丁，让人们可以立刻使用到新特性</li>
+</ul>
+<h2 id="CSS-Houdini"><a href="#CSS-Houdini" class="headerlink" title="CSS Houdini"></a>CSS Houdini</h2><p><strong>CSS-TAG Houdini Task Force (CSS Houdini)</strong> 是W3C和各大厂商组成的一个工作组，志在建立一系列的API，让开发者能够介入浏览器的CSS引擎操作。</p>
+<p>Houdini让开发者可以直接访问CSS对象模型(CSSOM),开发人员可以编写浏览器理解并可以解析为CSS的代码，（从而创建新的CSS功能，而无需等待它们在浏览器中本机实现。）而不是在Javascript中更新样式。</p>
+<p>Much like Service Workers are a low-level JavaScript API for the browser’s cache, Houdini introduces low-level JavaScript APIs for the browser’s render engines</p>
+<p>下面这张图片展示的是每个环节对应的新标准，开发者可以用这些标准来控制对应的环节。</p>
+<p><img src="/2019/08/29/css-houdini/image2.png" alt="image2"></p>
+<p>包括：</p>
+<ul>
+<li><strong>Paint API</strong>: Deals with background-image and background-border as CSS attributes, giving you the ability to draw in a canvas style on these images.</li>
+<li><strong>Typed OM API</strong>: We have all had to deal with splitting up strings to remove the ‘px’ so that we can get an integer value of a style. Typed OM takes care of all these values with this object-based API for working with CSS values in JavaScript.</li>
+<li><strong>Properties &amp; Values API</strong>: Provides an API for defining CSS properties and giving them a type, behavior and default value. Very useful when paired with other APIs in this collection.</li>
+<li><strong>AnimationWorklet</strong>: This will solve the messy solution of watching for events such as scrolling and mouse movement inside the same thread that your UI is running. Enhancing user experience in a nifty API.</li>
+<li><strong>Layout API</strong>: Build your own layouts, reinvent flexbox and grid and implement it all with one CSS style added.</li>
+<li><strong>Parser API</strong>: Make your own DOM element types such as <code>&lt;color&gt;</code> and have them do whatever you want to their children.</li>
+<li><strong>Font Metrics API</strong>: Exposing some font data to you in a digestible form which give you a lot more control over text in your application.</li>
+</ul>
+<h3 id="Is-Houdini-ready-yet"><a href="#Is-Houdini-ready-yet" class="headerlink" title="Is Houdini ready yet?"></a>Is Houdini ready yet?</h3><p><a href="https://ishoudinireadyyet.com/" target="_blank" rel="noopener">https://ishoudinireadyyet.com/</a></p>
+<h3 id="Worklet"><a href="#Worklet" class="headerlink" title="Worklet"></a>Worklet</h3><blockquote>
+<p>The Worklet interface is a lightweight version of Web Workers and gives developers access to low-level parts of the rendering pipeline. With Worklets, you can run JavaScript and WebAssembly code to do graphics rendering or audio processing where high performance is required.</p>
+</blockquote>
+<p>Worklets are JavaScript modules, added by invoking the worklet’s addModule function, which is a Promise.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// From inside the browser&apos;s context</span><br><span class="line">await demoWorklet.addModule(&apos;path/to/script.js&apos;);</span><br><span class="line"></span><br><span class="line">// Multiple worklets can be loaded at once, as well</span><br><span class="line">Promise.all([</span><br><span class="line">  demoWorklet1.addModule(&apos;script1.js&apos;),</span><br><span class="line">  demoWorklet2.addModule(&apos;script2.js&apos;),</span><br><span class="line">]).then(results =&gt; &#123;</span><br><span class="line">  // Both worklets have loaded, and we can do tasks that rely on them</span><br><span class="line">&#125;);</span><br><span class="line">// The kind of worklet it is</span><br><span class="line">registerDemoWorklet(&apos;name&apos;, class &#123; // The name we&apos;ll call this worklet</span><br><span class="line"></span><br><span class="line">  // Each worklet can define different functions to be used</span><br><span class="line">  // These will be called by the render engine as needed</span><br><span class="line">  process(arg) &#123;</span><br><span class="line">    // Stuff happens in here! What happens depends on the worklet</span><br><span class="line">    // Sometimes it&apos;ll return something</span><br><span class="line">    // Other times it&apos;ll work directly on the arguments</span><br><span class="line">    return !arg;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Worklet-types"><a href="#Worklet-types" class="headerlink" title="Worklet types:"></a>Worklet types:</h4><ul>
+<li>PaintWorklet</li>
+<li>AnimationWorklet</li>
+<li>LayoutWorklet</li>
+</ul>
+<h3 id="Typed-OM"><a href="#Typed-OM" class="headerlink" title="Typed OM"></a>Typed OM</h3><p><strong>面临的问题</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const el = document.getElementById(&apos;el&apos;)</span><br><span class="line"></span><br><span class="line">const opacity = window.getComputedStyle(el).opacity</span><br><span class="line"></span><br><span class="line">typeof opacity === &apos;string&apos; // true</span><br><span class="line"></span><br><span class="line">el.style.opacity = 0.2</span><br><span class="line">el.style.opacity += 0.1</span><br><span class="line">// &quot;0.20.1&quot; ???</span><br></pre></td></tr></table></figure>
+
+<p>Typed OM通过给CSS值添加类型、方法和适当的对象模型来进行扩展。值不再是字符串，而是作为 JavaScript 对象的值，用于提升 CSS 的性能和更加合理的操作。</p>
+<p>在Typed OM中，CSS值都是 CSSStyleValue 基类中的成员，基类下有许多子类可以更详细的描述CSS值，包括：</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>CSSKeywordValue : CSS Keywords and other identifiers (like inherit or grid)</li>
+<li>CSSImageValue : An object representing the value properties for an image</li>
+<li>CSSUnitValue : Numeric values that can be expressed as a single value with single unit (like 50px) or a single value or percentage without a unit</li>
+<li>CSSMathValue : Complicated numeric values, like you would find with calc, min, and max. This includes subclasses CSSMathSum, CSSMathProduct, CSSMathMin, CSSMathMax, CSSMathNegate, and CSSMathInvert</li>
+<li>CSSTransformValue : A list of CSS transforms consisting of CSSTransformComponents, including CSSTranslate, CSSRotate, CSSScale, CSSSkew, CSSSkewX, CSSSkewY, CSSPerspective, and/or CSSMatrixComponent</li>
+<li>CSSUnparsedValue : CSSUnparsedValue objects represent property values that reference custom properties.</li>
+</ul>
+<p><strong>可用性检测方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.CSS &amp;&amp; CSS.number</span><br></pre></td></tr></table></figure>
+
+<p><strong>CSS 数值</strong></p>
+<p>数字由 Typed OM 中 CSSNumericValue 对象的两种类型来表示：</p>
+<ul>
+<li>CSSUnitValue - 包含单个单位类型（例如 “42px”）的值</li>
+<li>CSSMathValue - 包含多个值/单位的值，如数学表达式（例如 “calc(56em + 10%)”）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 单位值</span><br><span class="line">const &#123;value, unit&#125; = CSS.number(&apos;10&apos;);</span><br><span class="line">// value === 10, unit === &apos;number&apos;</span><br><span class="line"></span><br><span class="line">const &#123;value, unit&#125; = CSS.px(42);</span><br><span class="line">// value === 42, unit === &apos;px&apos;</span><br><span class="line"></span><br><span class="line">const &#123;value, unit&#125; = CSS.vw(&apos;100&apos;);</span><br><span class="line">// value === 100, unit === &apos;vw&apos;</span><br><span class="line"></span><br><span class="line">const &#123;value, unit&#125; = CSS.percent(&apos;10&apos;);</span><br><span class="line">// value === 10, unit === &apos;percent&apos;</span><br><span class="line"></span><br><span class="line">const &#123;value, unit&#125; = CSS.deg(45);</span><br><span class="line">// value === 45, unit === &apos;deg&apos;</span><br><span class="line"></span><br><span class="line">const &#123;value, unit&#125; = CSS.ms(300);</span><br><span class="line">// value === 300, unit === &apos;ms&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 数学值</span><br><span class="line">new CSSMathSum(CSS.vw(100), CSS.px(-10)).toString(); // &quot;calc(100vw + -10px)&quot;</span><br><span class="line"></span><br><span class="line">new CSSMathNegate(CSS.px(42)).toString() // &quot;calc(-42px)&quot;</span><br><span class="line"></span><br><span class="line">new CSSMathInvert(CSS.s(10)).toString() // &quot;calc(1 / 10s)&quot;</span><br><span class="line"></span><br><span class="line">new CSSMathProduct(CSS.deg(90), CSS.number(Math.PI/180)).toString();</span><br><span class="line">// &quot;calc(90deg * 0.0174533)&quot;</span><br><span class="line"></span><br><span class="line">new CSSMathMin(CSS.percent(80), CSS.px(12)).toString(); // &quot;min(80%, 12px)&quot;</span><br><span class="line"></span><br><span class="line">new CSSMathMax(CSS.percent(80), CSS.px(12)).toString(); // &quot;max(80%, 12px)&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>获取和设置Typed OM值</strong></p>
+<ul>
+<li>attributeStyleMap : 用于获取和设置内联样式</li>
+<li>computedStyleMap : 获取元素的完整Typed OM样式</li>
+</ul>
+<h5 id="attributeStyleMap-Get-and-Set"><a href="#attributeStyleMap-Get-and-Set" class="headerlink" title="attributeStyleMap Get and Set"></a>attributeStyleMap Get and Set</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">el.attributeStyleMap.set(&apos;font-size&apos;, CSS.em(2));</span><br><span class="line">el.attributeStyleMap.get(&apos;font-size&apos;);</span><br><span class="line">// CSSUnitValue &#123; value: 2, unit: &apos;em&apos; &#125;</span><br><span class="line"></span><br><span class="line">el.attributeStyleMap.set(&apos;opacity&apos;, CSS.number(.5));</span><br><span class="line">el.attributeStyleMap.get(&apos;opacity&apos;);</span><br><span class="line">// CSSUnitValue &#123; value: 0.5, unit: &apos;number&apos; &#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="computedStyleMap-Output"><a href="#computedStyleMap-Output" class="headerlink" title="computedStyleMap Output"></a>computedStyleMap Output</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// css</span><br><span class="line">.el &#123;</span><br><span class="line">  vertical-align: baseline;</span><br><span class="line">  width: calc(100% - 3em);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// js</span><br><span class="line">const cs = $(&apos;.foo&apos;).computedStyleMap();</span><br><span class="line"></span><br><span class="line">cs.get(&apos;vertical-align&apos;);</span><br><span class="line">// CSSKeywordValue &#123;</span><br><span class="line">// value: &apos;baseline&apos;,</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">cs.get(&apos;width&apos;);</span><br><span class="line">// CSSMathSum &#123;</span><br><span class="line">// operator: &apos;sum&apos;,</span><br><span class="line">// values: CSSNumericArray &#123;</span><br><span class="line">// 0: CSSUnitValue &#123; value: -90, unit: &apos;px&apos; &#125;,</span><br><span class="line">// 1: CSSUnitValue &#123; value: 100, unit: &apos;percent&apos; &#125;,</span><br><span class="line">// length: 2</span><br><span class="line">// &#125;,</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>优点</strong></p>
+<ul>
+<li><p>更少的bug。例如数字值总是以数字形式返回，而不是字符串。</p>
+</li>
+<li><p>算术运算和单位转换。在绝对长度单位（例如 px -&gt; cm）之间进行转换并进行基本的数学运算。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Convert px to other absolute/physical lengths.</span><br><span class="line">el.attributeStyleMap.set(&apos;width&apos;, &apos;500px&apos;);</span><br><span class="line">const width = el.attributeStyleMap.get(&apos;width&apos;);</span><br><span class="line">width.to(&apos;mm&apos;); // CSSUnitValue &#123;value: 132.29166666666669, unit: &quot;mm&quot;&#125;</span><br><span class="line">width.to(&apos;cm&apos;); // CSSUnitValue &#123;value: 13.229166666666668, unit: &quot;cm&quot;&#125;</span><br><span class="line">width.to(&apos;in&apos;); // CSSUnitValue &#123;value: 5.208333333333333, unit: &quot;in&quot;&#125;</span><br><span class="line"></span><br><span class="line">CSS.deg(200).to(&apos;rad&apos;).value // &quot;3.49066rad&quot;</span><br><span class="line">CSS.s(2).to(&apos;ms&apos;).value // 2000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数值范围限制和舍入。Typed OM 通过对值进行范围限制和舍入，以使其在属性的可接受范围内。</p>
+</li>
+<li><p>更好的性能。浏览器必须做更少的工作序列化和反序列化字符串值。</p>
+</li>
+<li><p>错误处理。新的解析方法带来了 CSS 世界中的错误处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 检查 CSS 解析器是否符合 transform 值</span><br><span class="line">try &#123;</span><br><span class="line">  const css = CSSStyleValue.parse(&apos;transform&apos;, &apos;translate4d(bogus value)&apos;);</span><br><span class="line">    // use css</span><br><span class="line">&#125; catch (err) &#123;</span><br><span class="line">  console.log(err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“我应该使用骆驼式的 CSS 名称还是字符串呢？” 你不再需要猜测名字是骆驼还或字符串（例如 el.style.backgroundColor vs el.style[‘background-color’]）。Typed OM 中的 CSS 属性名称始终是字符串，与您实际在 CSS 中编写的内容一致:)</p>
+<p>减少错误、提升性能。</p>
+</li>
+</ul>
+<h3 id="Custom-Properties"><a href="#Custom-Properties" class="headerlink" title="Custom Properties"></a>Custom Properties</h3><p><strong>CSS变量</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  :root &#123;</span><br><span class="line">    --num: 10;</span><br><span class="line">    --content: &apos;content&apos;;</span><br><span class="line">    --length: 100px;</span><br><span class="line">  &#125;</span><br><span class="line">  .class &#123;</span><br><span class="line">    width: calc(var(--num) * 1px);</span><br><span class="line">    height: var(--length);</span><br><span class="line">  &#125;</span><br><span class="line">  .class:after &#123;</span><br><span class="line">    content: var(--content);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">/* 问题 */</span><br><span class="line">/* Current Situation (CSS Variables) */</span><br><span class="line">.thing &#123;</span><br><span class="line">  --my-color: green;</span><br><span class="line">  --my-color: url(&apos;not-a-color&apos;); // It&apos;s just a variable! It doesn&apos;t know any better</span><br><span class="line">  color: var(--my-color); // This is now sad!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>CSS自定义属性和自定义变量有什么区别？</strong></p>
+<p>实际上，CSS自定义属性和CSS变量之间没有区别，CSS自定义属性被 var() 调用的时候，它就从CSS自定义属性变成了CSS变量。但CSS中的自定义属性和CSS Houdini中的CSS自定义属性在声明的时候有明显的差异，在CSS Houdini中使用 CSS.registerProperty 来声明一个自定义属性，你还能更好的控制它。因为这样声明的CSS自定义属性，你可以给自定义属性分配<strong>CSS类型、设置初始值和继承</strong>。</p>
+<p><strong>注册自定义属性</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (&apos;registerProperty&apos; in CSS ) &#123;</span><br><span class="line">  CSS.registerProperty(&#123;</span><br><span class="line">    name: &apos;--foo&apos;, // String, name of the custom property</span><br><span class="line">    syntax: &apos;&lt;color&gt;&apos;, // String, how to parse this property. Defaults to *</span><br><span class="line">    inherits: false, // Boolean, if true should inherit down the DOM tree</span><br><span class="line">    initialValue: &apos;black&apos;, // String, initial value of this property</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>There are a number of supported syntaxes from the CSS Values and Units spec that can be used when registering a Custom Property:</p>
+<ul>
+<li><code>&lt;length&gt;</code> - Any valid length value</li>
+<li><code>&lt;number&gt;</code> - Any valid number value</li>
+<li><code>&lt;percentage&gt;</code> - Any valid percentage value</li>
+<li><code>&lt;length-percentage&gt;</code> - Any valid length or percentage value, or any calc expression combining length and percentage components</li>
+<li><code>&lt;color&gt;</code> - Any valid color value</li>
+<li><code>&lt;image&gt;</code> - Any Any valid image value</li>
+<li><code>&lt;url&gt;</code> - Any valid url value</li>
+<li><code>&lt;integer&gt;</code> - Any valid integer value</li>
+<li><code>&lt;angle&gt;</code> - Any valid angle value</li>
+<li><code>&lt;time&gt;</code> - Any valid time value</li>
+<li><code>&lt;resolution&gt;</code> - Any valid resolution value</li>
+<li><code>&lt;transform-list&gt;</code> - Any valid transform function value</li>
+<li><code>&lt;custom-ident&gt;</code> - Any valid ident value</li>
+</ul>
+<p>You can also use + to allow for a space-separarted list of one or more items of that syntax, and separate syntaxes with | to allow one syntax or another</p>
+<h3 id="Paint-API"><a href="#Paint-API" class="headerlink" title="Paint API"></a>Paint API</h3><p>The CSS Painting API Level 1, also known as the Houdini PAINT API, gives us a new option for places where we would use images in CSS: backgrounds, masks, and the like. With the new paint() function, and a PAINT API worklet, we can:</p>
+<ul>
+<li>Use a 2D Canvas-like drawing context to draw</li>
+<li>Scale our drawn image based on the size of the element (and redraw too)</li>
+<li>Style our drawing using <strong><em>Custom Properties</em></strong></li>
+</ul>
+<p><strong>使用</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/* CSS */</span><br><span class="line">.box &#123;</span><br><span class="line">    width: 180px;</span><br><span class="line">    height: 180px;</span><br><span class="line">    background-image: paint(sample-paint);</span><br><span class="line">&#125;</span><br><span class="line">// js</span><br><span class="line">if (window.CSS) &#123;</span><br><span class="line">  CSS.paintWorklet.addModule(&apos;paint-worklet.js&apos;);</span><br><span class="line">&#125;</span><br><span class="line">// paint-worklet.js</span><br><span class="line"></span><br><span class="line">registerPaint(&apos;sample-paint&apos;, class &#123;</span><br><span class="line">  // Custom properties from element&apos;s style to look for</span><br><span class="line">  static get inputProperties() &#123; return [&apos;--foo&apos;]; &#125;</span><br><span class="line">  // Input arguments that can be passed to the `paint` function</span><br><span class="line">  static get inputArguments() &#123; return [&apos;&lt;color&gt;&apos;]; &#125;</span><br><span class="line"></span><br><span class="line">  paint(ctx, size, props, args) &#123;</span><br><span class="line">    // ctx - drawing context</span><br><span class="line">    // size - size of the box being painted</span><br><span class="line">    // props - inputProperties</span><br><span class="line">    // args - array of passed-in arguments</span><br><span class="line"></span><br><span class="line">    // Paint code goes here.</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>PAINT API Polyfill</strong><br>Start using the PAINT API today! Google Chrome Labs maintains a polyfill for the PAINT API which makes it available in all browsers that support Canvas!</p>
+<p><strong>适用场景</strong><br>CSS Paint API更适用于动态场景，适合实现需要实时绘制渲染的需求。如果是纯静态展示，直接就用JS加Canvas实现得了，没必要为了技术而技术。</p>
+<h3 id="Animation-API"><a href="#Animation-API" class="headerlink" title="Animation API"></a>Animation API</h3><p>The Animation Worklet API provides a method to create scripted animations that control a set of animation effects. The API is designed to make it possible for user agents to run such animations in their own dedicated thread to provide a degree of performance isolation from main thread.</p>
+<p>Animation Worklet allows you to write imperative animations that run at the device’s native frame rate for that extra buttery jank-free smoothness™, make your animations more resilient against main thread jank and are linkable to scroll instead of time.</p>
+<p>Worklet Overview</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">registerAnimator(&apos;sample-animator&apos;, class &#123;</span><br><span class="line">  constructor(options) &#123;</span><br><span class="line">    // Called when a new animator is instantiated</span><br><span class="line">    // Used to set stuff up for each use of an animator</span><br><span class="line">  &#125;</span><br><span class="line">  animate(currentTime, effect) &#123;</span><br><span class="line">    // currentTime - The current time from the defined timeline</span><br><span class="line">    // effect - Group of effects that this animation is working on</span><br><span class="line"></span><br><span class="line">    // Animation frame logic goes here.</span><br><span class="line">    // Usually something to the effect of setting the time of an effect</span><br><span class="line">    effect.localTime = currentTime;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Register and Use Worklet from Main JavaScript</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">await CSS.animationWorklet.addModule(&apos;path/to/animation-worklet.js&apos;);</span><br><span class="line"></span><br><span class="line">// Element we want to animate</span><br><span class="line">const elem = document.querySelector(&apos;#my-elem&apos;);</span><br><span class="line">// The element we want to watch the scrolling on</span><br><span class="line">const scrollSource = document.scrollingElement;</span><br><span class="line">// Number of steps our animation will be broken up in to</span><br><span class="line">const timeRange = 1000;</span><br><span class="line"> // A new ScrollTimeline to use! Listen to scroll on the `scrollSource`, divide everything in to `timeRage` pieces, optionally start at `startScrollOffset` and end at `endScrollOffset`</span><br><span class="line">const scrollTimeline = new ScrollTimeline(&#123;</span><br><span class="line">  scrollSource,</span><br><span class="line">  timeRange,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const effectKeyframes = new KeyframeEffect(</span><br><span class="line">  elem,</span><br><span class="line">  // The Keyframe animation effects we want to apply</span><br><span class="line">  [</span><br><span class="line">    &#123;transform: &apos;scale(1)&apos;&#125;,</span><br><span class="line">    &#123;transform: &apos;scale(.25)&apos;&#125;,</span><br><span class="line">    &#123;transform: &apos;scale(1)&apos;&#125;</span><br><span class="line">  ],</span><br><span class="line">  &#123;</span><br><span class="line">    // The duration of the effect. If set to `timeRange` it will be a 1:1 movement with the scroll of the element, 0-`timeRange` will be faster, &gt;`timeRage` will be slower, and 0 will be off</span><br><span class="line">    duration: timeRange,</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// Create a new WorkletAnimation</span><br><span class="line">new WorkletAnimation(</span><br><span class="line">  // Name of the Animation Worklet to use</span><br><span class="line">  &apos;sample-animator&apos;,</span><br><span class="line">  // Effect(s) to use. Can be an array of KeyframeEffects</span><br><span class="line">  effectKeyframes,</span><br><span class="line">  // Timeline to use for the Worklet</span><br><span class="line">  scrollTimeline,</span><br><span class="line">  // Options to pass in to Animation Worklet constructor</span><br><span class="line">  &#123;&#125;,</span><br><span class="line">).play(); // Make It So</span><br></pre></td></tr></table></figure>
+
+<h3 id="Layout-API"><a href="#Layout-API" class="headerlink" title="Layout API"></a>Layout API</h3><p>The layout worklet is supposed to enable you to do display: layout(‘myLayout’) and run your JavaScript to arrange a node’s children in the node’s box.</p>
+<h2 id="CONCLUSION"><a href="#CONCLUSION" class="headerlink" title="CONCLUSION"></a>CONCLUSION</h2><p><strong>Advantage</strong></p>
+<ul>
+<li>Faster parse times for complex styles (since the styling is happening at the CSS step)</li>
+<li>Developers no longer need to wait for web browser vendors to add CSS functionality — they can just polyfill it (this would happen when all browsers support Houdini — each Houdini worklet could then work interchangeably between browsers, like CSS plugins)</li>
+<li>Polyfills are more performant, so pages will render faster</li>
+<li>Better separation of logic and style (style kept in CSS, logic kept in JS)</li>
+<li>More customized styles and design systems (since this approach allows us to add in styles that we can’t create with CSS today, as well as allows us to create default values and fallbacks in visual systems)</li>
+</ul>
+<h2 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h2><ul>
+<li><p>Houdini</p>
+<p><a href="https://imweb.io/topic/5be2f11221ff0e9610a66470" target="_blank" rel="noopener">https://imweb.io/topic/5be2f11221ff0e9610a66470</a><br><a href="https://coalya.github.io/2018/08/01/houdni/" target="_blank" rel="noopener">https://coalya.github.io/2018/08/01/houdni/</a><br><a href="https://blog.logrocket.com/new-horizons-in-css-houdini-and-the-paint-api-8b307cf387bb/" target="_blank" rel="noopener">https://blog.logrocket.com/new-horizons-in-css-houdini-and-the-paint-api-8b307cf387bb/</a><br><a href="https://qianduan.group/posts/5ac9b45c9fd64d5a7458a8c1" target="_blank" rel="noopener">https://qianduan.group/posts/5ac9b45c9fd64d5a7458a8c1</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Houdini" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/Houdini</a></p>
+</li>
+<li><p>Worklet</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Worklet" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/API/Worklet</a></p>
+</li>
+<li><p>Typed OM</p>
+<p><a href="https://www.miaoroom.com/code/cssom-css-typed-om.html" target="_blank" rel="noopener">https://www.miaoroom.com/code/cssom-css-typed-om.html</a><br><a href="https://developers.google.com/web/updates/2018/03/cssom" target="_blank" rel="noopener">https://developers.google.com/web/updates/2018/03/cssom</a><br><a href="https://zhuanlan.zhihu.com/p/35029796" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35029796</a><br><a href="https://www.miaoroom.com/code/cssom-css-typed-om.html" target="_blank" rel="noopener">https://www.miaoroom.com/code/cssom-css-typed-om.html</a><br><a href="https://drafts.css-houdini.org/css-typed-om/" target="_blank" rel="noopener">https://drafts.css-houdini.org/css-typed-om/</a><br><a href="https://houdini.glitch.me/typed-om" target="_blank" rel="noopener">https://houdini.glitch.me/typed-om</a></p>
+</li>
+<li><p>Custom Properties</p>
+<p><a href="https://www.w3cplus.com/css/css-property-and-value-in-css-houdini.html" target="_blank" rel="noopener">https://www.w3cplus.com/css/css-property-and-value-in-css-houdini.html</a><br><a href="https://houdini.glitch.me/custom-properties" target="_blank" rel="noopener">https://houdini.glitch.me/custom-properties</a></p>
+</li>
+<li><p>Paint API</p>
+<p><a href="https://www.zhangxinxu.com/wordpress/2018/11/css-paint-api-canvas/" target="_blank" rel="noopener">https://www.zhangxinxu.com/wordpress/2018/11/css-paint-api-canvas/</a><br><a href="https://houdini.glitch.me/paint" target="_blank" rel="noopener">https://houdini.glitch.me/paint</a></p>
+</li>
+<li><p>Animation APi</p>
+<p><a href="https://developers.google.com/web/updates/2018/10/animation-worklet" target="_blank" rel="noopener">https://developers.google.com/web/updates/2018/10/animation-worklet</a><br><a href="https://houdini.glitch.me/animation" target="_blank" rel="noopener">https://houdini.glitch.me/animation</a></p>
+</li>
+<li><p>Layout API</p>
+<p><a href="https://houdini.glitch.me/layout" target="_blank" rel="noopener">https://houdini.glitch.me/layout</a><br><a href="https://developers.google.com/web/updates/2016/05/houdini#layout_worklet" target="_blank" rel="noopener">https://developers.google.com/web/updates/2016/05/houdini#layout_worklet</a></p>
+</li>
+<li><p>例子</p>
+<p><a href="https://css-houdini.rocks/" target="_blank" rel="noopener">https://css-houdini.rocks/</a><br><a href="https://github.com/GoogleChromeLabs/houdini-samples" target="_blank" rel="noopener">https://github.com/GoogleChromeLabs/houdini-samples</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2019/08/29/css-houdini/">https://lijingying91.github.io/2019/08/29/css-houdini/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>Hard Work</strong> Pays Off</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JS/"># JS</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/08/28/webpack面试汇总/">【转】webpack面试汇总</a>
+            
+        </section>
+
+
+    </article>
+
+    
+
+    
+        <div id="gitment_title" class="gitment_title">说些什么</div>
+<div id="container" style="display:none"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
+<script src="https://billts.site/js/gitment.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-Hans";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      // container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    }
+  }
+
+  function showGitment() {
+    $("#gitment_title").attr("style", "display:block");
+    $("#container").attr("style", "").addClass("gitment_container");
+    var gitment = new Gitment({
+      id: Date.parse('Thu Aug 29 2019 17:15:51 GMT+0800').toString(),
+      theme: myTheme,
+      owner: 'lijingying91',
+      repo: 'lijingying91.github.io',
+      oauth: {
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
+      }
+    });
+    gitment.render('container');
+  }
+
+  showGitment();
+</script>
+    
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
