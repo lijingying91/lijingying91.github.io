@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lijingying91.github.io/about/index.html</loc>
+    
+    <lastmod>2019-09-02T06:42:22.592Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://lijingying91.github.io/2019/08/29/css-houdini/</loc>
     
     <lastmod>2019-08-29T09:40:30.785Z</lastmod>
@@ -96,13 +103,6 @@
     <loc>https://lijingying91.github.io/2017/05/26/%E9%AB%98%E6%80%A7%E8%83%BDJS/</loc>
     
     <lastmod>2019-08-16T03:29:19.793Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://lijingying91.github.io/about/index.html</loc>
-    
-    <lastmod>2019-08-16T03:23:52.221Z</lastmod>
     
   </url>
   
