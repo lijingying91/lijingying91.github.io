@@ -198,26 +198,16 @@
             <h2 id="1-状态码"><a href="#1-状态码" class="headerlink" title="1. 状态码"></a>1. 状态码</h2><ol>
 <li>1XX 指示信息 —— 表示请求已接收，继续处理</li>
 <li>2XX 成功 —— 表示请求已被成功接收，理解，接受<blockquote>
-<ul>
-<li>200 成功，用于GET与POST</li>
-</ul>
+<p>200 成功，用于GET与POST</p>
 </blockquote>
 </li>
 <li>3XX 重定向 —— 要完成请求必须进行更近一步的操作</li>
 <li>4XX 客户端错误 —— 请求有语法错误或请求无法实现<blockquote>
-<ul>
-<li>400 客户端请求语法错误，服务器无法理解</li>
-<li>403 服务器理解，拒绝执行</li>
-<li>404 服务器无法根据客户端的请求找到资源，一般路径错误</li>
-<li>408 超时</li>
-</ul>
+<p>400 客户端请求语法错误，服务器无法理解<br>403 服务器理解，拒绝执行<br>404 服务器无法根据客户端的请求找到资源，一般路径错误<br>408 超时</p>
 </blockquote>
 </li>
 <li>5XX 服务端错误 —— 服务器未能实现合法的请求<blockquote>
-<ul>
-<li>500 服务器内部错误</li>
-<li>502 充当网关或代理，接收到无效请求</li>
-</ul>
+<p>500 服务器内部错误<br>502 充当网关或代理，接收到无效请求</p>
 </blockquote>
 </li>
 </ol>
@@ -230,8 +220,38 @@
 <p><img src="/2017/12/01/关于Http/Http_0-9.png" alt="html0.9"></p>
 <h3 id="2-HTTP-1-0-GET、POST、HEAD"><a href="#2-HTTP-1-0-GET、POST、HEAD" class="headerlink" title="2. HTTP / 1.0 GET、POST、HEAD"></a>2. HTTP / 1.0 GET、POST、HEAD</h3><p>  状态码、多字符集支持、多部分发送、权限、缓存、内容码</p>
 <blockquote>
-<p>回应格式：头信息 + 一个空行（\r\n）+ 数据<br>第一行 “协议版本+状态码” </p>
+<p>回应格式：头信息 + 一个空行（\r\n）+ 数据<br>第一行 “协议版本+状态码”<br><code>Content-Type</code> 字段<br>MIME type + 编码<br>头信息必须ASC编码</p>
 </blockquote>
+<p>  缺点：每个TCP连接只能发送一个请求，TCP新建成本高，三次握手</p>
+<p>  解决：发送keep-alive</p>
+<h3 id="3-HTTP-1-1-一直沿用到现在（20年-）"><a href="#3-HTTP-1-1-一直沿用到现在（20年-）" class="headerlink" title="3. HTTP / 1.1 一直沿用到现在（20年-）"></a>3. HTTP / 1.1 一直沿用到现在（20年-）</h3><ul>
+<li><p>不用声明connection：keep-alive多个请求复用</p>
+</li>
+<li><p>客户端最后一个请求：connection close（同时支持6个连接）</p>
+</li>
+<li><p>管道机制：同一个TCP可同时发多个请求，响应还是按顺序，返回 <code>Content-Length</code> 区分</p>
+</li>
+<li><p>分块传输编码：<code>Transfer-Encoding</code> 区分，chunked</p>
+</li>
+<li><p>新增：PUT、PATCH、HEAD、OPTIONS、DELETE。</p>
+<pre><code>HOST：指定域名，将请求发往同一个服务器不同网站</code></pre><p>缺点：同一个TCP里虽然可同时发送，但处理是顺序的。（队头堵塞）<br>优化：合并脚本和样式，图片嵌入css代码，域名分片</p>
+<h3 id="4-SPDY协议：解除最大连接数"><a href="#4-SPDY协议：解除最大连接数" class="headerlink" title="4. SPDY协议：解除最大连接数"></a>4. SPDY协议：解除最大连接数</h3><h3 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP / 2"></a>HTTP / 2</h3><p>头信息和数据体都是二进制，统称为“帧”：头信息帧和数据帧</p>
+</li>
+</ul>
+<ol>
+<li><p>多工</p>
+<p>server和client都可以同时发送多个请求和回应</p>
+</li>
+<li><p>数据流</p>
+<p>每一个请求或回应的所有数据包<br>每个包都有一个ID，server为偶数、client为奇数，还可以设置优先级</p>
+</li>
+<li><p>头信息压缩</p>
+<p>有头信息表，所有字段存入，生成索引号，只发送索引</p>
+</li>
+<li><p>主动推送资源</p>
+<p>头信息：文本（ASC2）编码<br>数据体：文本 / 二进制</p>
+</li>
+</ol>
 
         </div>
 
