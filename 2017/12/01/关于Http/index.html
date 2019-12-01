@@ -8,7 +8,7 @@
 
 
 
-<title>DOM相关API | Hellooo-Joy&#39;s Blogs</title>
+<title>关于Http | Hellooo-Joy&#39;s Blogs</title>
 
 
 
@@ -170,7 +170,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">DOM相关API</h1>
+            <h1 class="post-title">关于Http</h1>
             
                 <div class="post-meta">
                     
@@ -179,7 +179,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">一月 28, 2018&nbsp;&nbsp;0:00:00</a>
+                        Date: <a href="#">十二月 1, 2017&nbsp;&nbsp;16:18:05</a>
                         </span>
                     
                     
@@ -195,53 +195,43 @@
         </header>
 
         <div class="post-content">
-            <h2 id="1-node类型"><a href="#1-node类型" class="headerlink" title="1. node类型"></a>1. node类型</h2><p>  <code>appendChild</code></p>
-<p>  <code>insertBefore</code></p>
-<p>  <code>replaceChild</code></p>
-<p>  <code>removeChild</code></p>
-<p>  IE9之前的版本不会为空白符创建节点</p>
-<p>  <code>normalize</code></p>
-<h2 id="2-Document类型-nodeType-9"><a href="#2-Document类型-nodeType-9" class="headerlink" title="2. Document类型 nodeType==9"></a>2. Document类型 nodeType==9</h2><p>  <code>html = document.documentElement;</code></p>
-<p>  <code>body = document.body;</code></p>
-<p>  所有浏览器都支持<code>document.documentElement</code>和<code>document.body</code>属性</p>
-<p>  <code>title\url\domain\referrer</code></p>
-<p>  特殊集合：<code>document.anchors</code>/<code>document.applets</code>/<code>document.forms</code>/<code>document.images</code>/<code>document.links</code></p>
-<p>  文档写入：<code>document.write()</code>/<code>document.writeIn()</code>/<code>document.open()</code>/<code>document.close()</code></p>
-<h2 id="3-Element类型-nodeType-1"><a href="#3-Element类型-nodeType-1" class="headerlink" title="3. Element类型 nodeType==1"></a>3. Element类型 nodeType==1</h2><p>  html属性：<code>id/title/lang/dir/className</code></p>
-<p>  特性方法：<code>getAttribute()/setAttribute()/removeAttribute()</code></p>
-<p>  属性方法：<code>getNamedItem(name)/removeNamedItem(name)/setNamedItem(node)/item(pos)</code></p>
-<p>  创建元素：<code>document.createElement()</code></p>
-<h2 id="4-Text类型-nodeType-3"><a href="#4-Text类型-nodeType-3" class="headerlink" title="4. Text类型 nodeType==3"></a>4. Text类型 nodeType==3</h2><p>  <code>appendData(text)</code>/<code>deleteData(offset, count)</code>/<code>insertData(offset, text)</code>/<code>replaceData(offset, count, text)</code>/<code>splitText(offset)</code>/<code>substringData(offset, count)</code></p>
-<p>  创建文本节点：<code>document.createTextNode()</code></p>
-<p>  规范化文本节点：<code>normalize()</code>把两个节点合二为一 <code>splitText</code>正好相反`</p>
-<h2 id="5-Comment类型-nodeType-8"><a href="#5-Comment类型-nodeType-8" class="headerlink" title="5. Comment类型 nodeType==8"></a>5. Comment类型 nodeType==8</h2><p>  创建注释：<code>document.createComment()</code></p>
-<h2 id="6-CDATASection类型-nodeType-4-针对XML文档"><a href="#6-CDATASection类型-nodeType-4-针对XML文档" class="headerlink" title="6. CDATASection类型 nodeType==4 针对XML文档"></a>6. CDATASection类型 nodeType==4 针对XML文档</h2><h2 id="7-DocumentType类型-nodeType-10"><a href="#7-DocumentType类型-nodeType-10" class="headerlink" title="7. DocumentType类型 nodeType==10"></a>7. DocumentType类型 nodeType==10</h2><h2 id="8-DocumentFragment类型-nodeType-11-在文档中没有对应的标记"><a href="#8-DocumentFragment类型-nodeType-11-在文档中没有对应的标记" class="headerlink" title="8. DocumentFragment类型 nodeType==11 在文档中没有对应的标记"></a>8. DocumentFragment类型 nodeType==11 在文档中没有对应的标记</h2><h2 id="9-Attr类型-nodeType-2"><a href="#9-Attr类型-nodeType-2" class="headerlink" title="9. Attr类型 nodeType==2"></a>9. Attr类型 nodeType==2</h2><p>  特性节点：<code>document.createAttribute()</code></p>
-<h1 id="DOM扩展"><a href="#DOM扩展" class="headerlink" title="DOM扩展"></a>DOM扩展</h1><ol>
-<li><p><code>querySelector()</code>方法 返回匹配的第一个元素</p>
+            <h2 id="1-状态码"><a href="#1-状态码" class="headerlink" title="1. 状态码"></a>1. 状态码</h2><ol>
+<li>1XX 指示信息 —— 表示请求已接收，继续处理</li>
+<li>2XX 成功 —— 表示请求已被成功接收，理解，接受<blockquote>
+<ul>
+<li>200 成功，用于GET与POST</li>
+</ul>
+</blockquote>
 </li>
-<li><p><code>querySelectorAll()</code>方法 返回一个NodeList的实例</p>
+<li>3XX 重定向 —— 要完成请求必须进行更近一步的操作</li>
+<li>4XX 客户端错误 —— 请求有语法错误或请求无法实现<blockquote>
+<ul>
+<li>400 客户端请求语法错误，服务器无法理解</li>
+<li>403 服务器理解，拒绝执行</li>
+<li>404 服务器无法根据客户端的请求找到资源，一般路径错误</li>
+<li>408 超时</li>
+</ul>
+</blockquote>
 </li>
-<li><p><code>matchesSelector()</code>方法 调用元素与该选择符匹配，返回true，否则返回false，还没有浏览器支持：实验性msMatchesSelector()/mozMatchesSelector()/webkitMatchesSelector() 运用此方法写一个包装函数</p>
+<li>5XX 服务端错误 —— 服务器未能实现合法的请求<blockquote>
+<ul>
+<li>500 服务器内部错误</li>
+<li>502 充当网关或代理，接收到无效请求</li>
+</ul>
+</blockquote>
 </li>
 </ol>
-<p>【元素遍历】</p>
-<p>弥补浏览器返回文本节点的差异，元素遍历：<code>childElementCount</code>/<code>firstElementChild</code>/<code>lastElementChild</code>/<code>previousElementSibling</code>/<code>nextElementSibling</code></p>
-<p>【HTML5】新增API</p>
-<p><code>getElementByClassName()</code>方法</p>
-<p><code>classList</code>属性，新类型定义如下方法<code>add(value)</code>/<code>contains(value)</code>/<code>remove(value)</code>/<code>toggle(value)</code></p>
-<p>焦点管理 <code>document.activeElement</code>属性，文档刚加载完成时保存的是<code>document.body</code>,加载期间值为<code>null</code>；新增<code>document.hasFocus()</code>方法确定文档是否获得焦点</p>
-<p>HTMLDocument的变化：<code>document.readyState(&#39;loading/complete&#39;)</code>/兼容模式<code>document.compatMode(&#39;CSS1Compat标准/BackCompat混杂&#39;)</code>/head属性<code>docuemnt.head</code></p>
-<p>字符集属性<code>document.charset</code></p>
-<p>自定义数据属性 <code>dataset</code>属性的值是<code>DOMStringMap</code>的一个实例</p>
-<p>插入标记：innerHTML属性:可以像访问文档中的其他节点一样访问新创建的节点，但插入<code>&lt;script&gt;</code>元素不会执行其中的脚本/<code>outerHTML</code>属性：返回调用它的元素及所有子节点的HTML标签/<code>insertAdjacentHTML(&#39;beforebegin/afterbegin/beforeend/afterend&#39;, content)</code>方法</p>
-<p><code>scrollIntoView()</code>方法</p>
-<p>【专有扩展】</p>
-<p>文档模式：<code>document.documentMode</code></p>
-<p>children属性：处理文本中的空白符时有差异，这个属性是HTMLCollection的实例</p>
-<p>contains()方法：某节点是不是另一个节点的后代，DOM level 3方法：compareDocumentPosition()确定节点关系[1/无关，2/居前，4/居后，8/包含，16/被包含]</p>
-<p>插入文本：未被纳入html5规范<code>innerHTML</code>/<code>outerHTML</code></p>
-<p>滚动：<code>scrollIntoViewIfNeeded(alignCenter)</code>/<code>scrollByLines(lineCount)</code>/<code>scrollByPages(pageCount)</code></p>
-
+<h2 id="2-HTML解析过程"><a href="#2-HTML解析过程" class="headerlink" title="2. HTML解析过程"></a>2. HTML解析过程</h2><p><img src="/2017/12/01/关于Http/load_html.png" alt="html解析过程"></p>
+<h2 id="3-HTTP协议"><a href="#3-HTTP协议" class="headerlink" title="3. HTTP协议"></a>3. HTTP协议</h2><blockquote>
+<ul>
+<li>应用层 Http ftp</li>
+<li>运输层 TCP/UDP</li>
+<li>网络层 IP</li>
+<li>链路层 设备</li>
+</ul>
+</blockquote>
+<p>基于TCP/IP协议的应用层协议。它不涉及数据包传输，主要规定了客户端和服务器之间的通信格式</p>
+<h3 id="1-Http-0-9"><a href="#1-Http-0-9" class="headerlink" title="1. Http / 0.9"></a>1. Http / 0.9</h3>
         </div>
 
         
@@ -255,7 +245,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://lijingying91.github.io/2018/01/28/DOM相关API/">https://lijingying91.github.io/2018/01/28/DOM相关API/</a></span>
+                        <span><a href="https://lijingying91.github.io/2017/12/01/关于Http/">https://lijingying91.github.io/2017/12/01/关于Http/</a></span>
                     </p>
                 
                 
@@ -292,10 +282,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2018/05/30/my-first-blog/">面试总结</a>
+                <a class="prev" rel="prev" href="/2018/01/28/DOM相关API/">DOM相关API</a>
             
             
-            <a class="next" rel="next" href="/2017/12/01/关于Http/">关于Http</a>
+            <a class="next" rel="next" href="/2017/06/01/JS实践循环讲解/">JS事件循环讲解</a>
             
         </section>
 
@@ -329,7 +319,7 @@
     $("#gitment_title").attr("style", "display:block");
     $("#container").attr("style", "").addClass("gitment_container");
     var gitment = new Gitment({
-      id: Date.parse('Sun Jan 28 2018 00:00:00 GMT+0800').toString(),
+      id: Date.parse('Fri Dec 01 2017 16:18:05 GMT+0800').toString(),
       theme: myTheme,
       owner: 'lijingying91',
       repo: 'lijingying91.github.io',
