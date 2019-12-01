@@ -216,6 +216,17 @@
 <p>应用层 Http ftp<br>运输层 TCP/UDP<br>网络层 IP<br>链路层 设备</p>
 </blockquote>
 <p>基于TCP/IP协议的应用层协议。它不涉及数据包传输，主要规定了客户端和服务器之间的通信格式</p>
+<p>两个概念</p>
+<ol>
+<li><p>白屏时间：浏览器开始显示内容：开始渲染<code>&lt;body&gt;</code>标签解析完<code>&lt;head&gt;</code></p>
+<blockquote>
+<p>performance.timing.navigationStart|window.startTime</p>
+</blockquote>
+<p> App –&gt; DNS –&gt; TCP –&gt; Request –&gt; Response<br> DNS优化：域名收敛<br> 一般来说，手机的域名数不能超过5个，DNS相当于一个存储IP地址的数据库，类似电话本概念</p>
+</li>
+<li><p>首屏时间：从打开网站到首屏内容渲染完成，包含JS等拉资源请求页面渲染部分</p>
+</li>
+</ol>
 <h3 id="1-HTTP-0-9"><a href="#1-HTTP-0-9" class="headerlink" title="1. HTTP / 0.9"></a>1. HTTP / 0.9</h3><p>  在建立TCP连接基础上</p>
 <p><img src="/2017/12/01/关于Http/Http_0-9.png" alt="html0.9"></p>
 <h3 id="2-HTTP-1-0-GET、POST、HEAD"><a href="#2-HTTP-1-0-GET、POST、HEAD" class="headerlink" title="2. HTTP / 1.0 GET、POST、HEAD"></a>2. HTTP / 1.0 GET、POST、HEAD</h3><p>  状态码、多字符集支持、多部分发送、权限、缓存、内容码</p>
@@ -254,6 +265,12 @@
 <p>头信息：文本（ASC2）编码<br>数据体：文本 / 二进制</p>
 </li>
 </ol>
+<h2 id="4-DNS"><a href="#4-DNS" class="headerlink" title="4. DNS"></a>4. DNS</h2><p>  找地址</p>
+<h3 id="1-从本地DNS-Cache"><a href="#1-从本地DNS-Cache" class="headerlink" title="1. 从本地DNS Cache"></a>1. 从本地DNS Cache</h3><pre><code>一般指浏览器</code></pre><h3 id="2-ISP的DNS-Server"><a href="#2-ISP的DNS-Server" class="headerlink" title="2. ISP的DNS Server"></a>2. ISP的DNS Server</h3><pre><code>递归查询：直接返回IP地址</code></pre><h3 id="3-root-nameserver"><a href="#3-root-nameserver" class="headerlink" title="3. root nameserver"></a>3. root nameserver</h3><pre><code>迭代查询
+包含 • 的最高域名地址
+流程： • -&gt; com. -&gt; example.com -&gt; www.example.com -&gt; IP address</code></pre><h3 id="4-接收到record，保存一份到本地（TLL）"><a href="#4-接收到record，保存一份到本地（TLL）" class="headerlink" title="4. 接收到record，保存一份到本地（TLL）"></a>4. 接收到record，保存一份到本地（TLL）</h3><pre><code>其实是DNS server，再定时取新record</code></pre><h3 id="5-record返回"><a href="#5-record返回" class="headerlink" title="5. record返回"></a>5. record返回</h3><pre><code>保存一份该record副本</code></pre><h2 id="5-UDP和TCP"><a href="#5-UDP和TCP" class="headerlink" title="5. UDP和TCP"></a>5. UDP和TCP</h2><p>  数据结构图 传输层上的通信方式不同</p>
+<h3 id="1-UDP"><a href="#1-UDP" class="headerlink" title="1. UDP"></a>1. UDP</h3><p>  简单：不需要建立可靠连接，发送小包文件，没有错误处理<br>  应用场景：app应用，DNS，广播传输，流媒体，线上游戏</p>
+<h3 id="2-TCP"><a href="#2-TCP" class="headerlink" title="2. TCP"></a>2. TCP</h3><p>  建立可靠的连接（3次握手）<br>  应用场景：web browsing、email、文件传输、线上游戏</p>
 
         </div>
 
