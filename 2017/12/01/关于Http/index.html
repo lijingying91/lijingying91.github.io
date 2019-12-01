@@ -223,15 +223,16 @@
 </ol>
 <h2 id="2-HTML解析过程"><a href="#2-HTML解析过程" class="headerlink" title="2. HTML解析过程"></a>2. HTML解析过程</h2><p><img src="/2017/12/01/关于Http/load_html.png" alt="html解析过程"></p>
 <h2 id="3-HTTP协议"><a href="#3-HTTP协议" class="headerlink" title="3. HTTP协议"></a>3. HTTP协议</h2><blockquote>
-<ul>
-<li>应用层 Http ftp</li>
-<li>运输层 TCP/UDP</li>
-<li>网络层 IP</li>
-<li>链路层 设备</li>
-</ul>
+<p>应用层 Http ftp<br>运输层 TCP/UDP<br>网络层 IP<br>链路层 设备</p>
 </blockquote>
 <p>基于TCP/IP协议的应用层协议。它不涉及数据包传输，主要规定了客户端和服务器之间的通信格式</p>
-<h3 id="1-Http-0-9"><a href="#1-Http-0-9" class="headerlink" title="1. Http / 0.9"></a>1. Http / 0.9</h3>
+<h3 id="1-HTTP-0-9"><a href="#1-HTTP-0-9" class="headerlink" title="1. HTTP / 0.9"></a>1. HTTP / 0.9</h3><p>  在建立TCP连接基础上</p>
+<p><img src="/2017/12/01/关于Http/Http_0-9.png" alt="html0.9"></p>
+<h3 id="2-HTTP-1-0-GET、POST、HEAD"><a href="#2-HTTP-1-0-GET、POST、HEAD" class="headerlink" title="2. HTTP / 1.0 GET、POST、HEAD"></a>2. HTTP / 1.0 GET、POST、HEAD</h3><p>  状态码、多字符集支持、多部分发送、权限、缓存、内容码</p>
+<blockquote>
+<p>回应格式：头信息 + 一个空行（\r\n）+ 数据<br>第一行 “协议版本+状态码” </p>
+</blockquote>
+
         </div>
 
         
