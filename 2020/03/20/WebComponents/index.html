@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta name="baidu-site-verification" content="qiktONbbSB">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>WebComponents | Hellooo-Joy&#39;s Blogs</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Li Jingying&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Li Jingying&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">WebComponents</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Li Jingying</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">三月 20, 2020&nbsp;&nbsp;18:29:18</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Web-Component"><a href="#Web-Component" class="headerlink" title="Web Component"></a>Web Component</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>组件，是数据和方法的一个封装，其定义了一个可重用的软件元素的功能，展示和使用，通常表现为一个或一组可重用的元素。<br>组件的特性通常可以总结为以下几点：</p>
+<ul>
+<li>可拓展性：既然组件是针对某一特定功能或需求开发的，那它就必须易于开发和拓展；</li>
+<li>封装性：组件作为一个独立整体供使用，应该是对内修改，对外封闭，只供使用，而不对使用环境产生副作用；</li>
+<li>易用性：组件的目的是产生可重用的独立部件，那就必须提供一种简单快捷的方式供使用。</li>
+</ul>
+<p>组件化，给前端开发带来了极大的效率提升，是近几年以来web开发发展的趋势，各种组件化的用户界面库，框架也层出不穷，如，React，Vue等，这些框架关于组件化都有各自的实现，推崇理念，与编程规范，各大框架的支持者之间的争论也是向来不断，而若想在不同框架间切换，成本还是挺高的，因为毕竟谁都希望自己能占主流，占据绝对优势地位，就像当前IE与网景浏览器之争，延续到现在，各类浏览器标准兼容差异万千，近年来w3c不断在为web标准规范做努力，Web Components就是推出的关于组件化的一个标准，希望它能将组件化更好的带进web开发，同时尽量保证标准规范，开发者可以更好的关注于开发，而不是框架选择与争论之上。</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Web Components它本身不是一个规范，他是由W3C提出的另外4个规范的合集，使开发者可以自由创建在web应用或文档可重用的元素或部件，这四个规范是：</p>
+<ul>
+<li>Custom Elements(草案阶段): 定义新HTML元素的一系列API</li>
+<li>Shadow Dom(草案阶段)：组合对DOM和样式的封装</li>
+<li>HTML Template(html5): HTML内的DOM模板，在<code>&lt;template&gt;</code>元素内声明</li>
+<li>HTML Imports(草案阶段): 定义在文档中导入其他HTML文档的方式</li>
+</ul>
+<p>如上，这四个规范除了template已经成为了HTML5的规范，其他3个还是处于草案阶段的，所以浏览器的支持情况比较差也是可以理解的了。接下来这四个规范一个个聊一聊。</p>
+<h3 id="Custom-Elements"><a href="#Custom-Elements" class="headerlink" title="Custom Elements"></a>Custom Elements</h3><p>自定义元素支持开发者定义一类新HTML元素，声明其行为和样式，比较好的实现了组件开发的可拓展性。</p>
+<p>浏览器对待自定义元素，就像对待标准元素一样，只是没有默认的样式和行为。这种处理方式是写入 HTML5 标准的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;User agents must treat elements and attributes that they do not understand as semantically neutral; leaving them in</span><br><span class="line"> the DOM (for DOM processors), and styling them according to CSS (for CSS processors), but not inferring any meaning from them.&quot;</span><br></pre></td></tr></table></figure>
+
+<p>上面这段话的意思是，浏览器必须将自定义元素保留在 DOM 之中，但不会任何语义。除此之外，自定义元素与标准元素都一致。</p>
+<p>事实上，浏览器提供了一个HTMLUnknownElement对象，所有自定义元素都是该对象的实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var tabs = document.createElement(&apos;tabs&apos;);</span><br><span class="line"></span><br><span class="line">tabs instanceof HTMLUnknownElement // true</span><br><span class="line">tabs instanceof HTMLElement // true</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，tabs是一个自定义元素，同时继承了HTMLUnknownElement和HTMLElement接口。</p>
+<p>Custom Elements提供了一些生命周期让我们组件可以在初始化的过程中就给自己绑定上方法：</p>
+<ul>
+<li>createdCallback:元素首次被插入文档DOM时触发</li>
+<li>attachedCallback:元素从文档DOM中删除时触发</li>
+<li>detachedCallback:元素被移动到新的文档时触发</li>
+<li>attributeChangedCallback(attrName, oldVal, newVal):元素增加、删除、修改自身属性时触发</li>
+</ul>
+<p>自定义元素分两类：</p>
+<ul>
+<li>自定义标签元素（Autonomous custom elements）：完全独立于原始HTML元素标签的新标签元素，其所有行为需要开发者定义；</li>
+<li>自定义内置元素（Customized built-in）：基于HTML原始元素标签的自定义元素，以便于使用原始元素的特性，开发者只需要定义拓展行为；</li>
+</ul>
+<h4 id="自定义标签元素"><a href="#自定义标签元素" class="headerlink" title="自定义标签元素"></a>自定义标签元素</h4><p>现在我们想要定义一个这样的元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;flag-icon country=&quot;cn&quot;&gt;&lt;/flag-icon&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过给属性country赋值来显示对应的国旗。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class FlagIcon extends HTMLElement &#123;</span><br><span class="line"> constructor() &#123;</span><br><span class="line"> super();</span><br><span class="line"> this._countryCode = null;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> static get observedAttributes() &#123; return [&quot;country&quot;]; &#125;</span><br><span class="line"></span><br><span class="line"> attributeChangedCallback(name, oldValue, newValue) &#123;</span><br><span class="line"> // name will always be &quot;country&quot; due to observedAttributes</span><br><span class="line"> this._countryCode = newValue;</span><br><span class="line"> this._updateRendering();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> connectedCallback() &#123;</span><br><span class="line"> this._updateRendering();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> get country() &#123;</span><br><span class="line"> return this._countryCode;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> set country(v) &#123;</span><br><span class="line"> this.setAttribute(&quot;country&quot;, v);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> _updateRendering() &#123;</span><br><span class="line"> //...</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//全局注册该元素</span><br><span class="line">customElements.define(&quot;flag-icon&quot;, FlagIcon);</span><br></pre></td></tr></table></figure>
+
+<p>注册后，也通过js创建该元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const flagIcon = document.createElement(&quot;flag-icon&quot;);</span><br><span class="line">flagIcon.country = &quot;cn&quot;;</span><br><span class="line">document.body.appendChild(flagIcon);</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义内置元素"><a href="#自定义内置元素" class="headerlink" title="自定义内置元素"></a>自定义内置元素</h4><p>继承自已有元素，拥有已有元素的所有特性。</p>
+<p>比如我们自定义一个按钮，集成普通按钮所有的特性，但是当点击的时候会有一个动效，就可以这么做 ——</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class PlasticButton extends HTMLButtonElement &#123;</span><br><span class="line"> constructor() &#123;</span><br><span class="line"> super();</span><br><span class="line"></span><br><span class="line"> this.addEventListener(&quot;click&quot;, () =&gt; &#123;</span><br><span class="line"> // 动效逻辑</span><br><span class="line"> &#125;);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不同的是，注册时要加上一个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">customElements.define(&quot;plastic-button&quot;, PlasticButton, &#123; extends: &quot;button&quot; &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>使用时也稍有不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button is=&quot;plastic-button&quot;&gt;点我!&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过js创建元素，则是这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const plasticButton = document.createElement(&quot;button&quot;, &#123; is: &quot;plastic-button&quot; &#125;);</span><br><span class="line">plasticButton.textContent = &quot;点我!&quot;;</span><br><span class="line">document.body.appendChild(flagIcon);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Shadow-Dom"><a href="#Shadow-Dom" class="headerlink" title="Shadow Dom"></a>Shadow Dom</h3><p>他的作用是：管理多DOM树的层级关系，更好的合成DOM。他的中心思想是封装一个完全独立于文档流的子DOM树。他完美的做到了css的封装。当然还有文档内容的封装。以及通过重定向事件做了事件层面的封装。当然封装是他提供的能力，作为使用者的我们其实很关心的是主文档与Shadow Dom的交互，这个在下面会提到。</p>
+<h4 id="创建Shadow-Dom"><a href="#创建Shadow-Dom" class="headerlink" title="创建Shadow Dom"></a>创建Shadow Dom</h4><p>使用的第一步是创建，Shadow Dom的创建得基于一个文档中已经存在的一个元素（HTML内置元素或自定义元素），也就是宿主元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var frag = document.createElement(&apos;div&apos;);</span><br><span class="line">var shadowRoot = frag.attachShadow(&#123;mode: &apos;open&apos;&#125;);</span><br><span class="line">shadowRoot.innerHTML = &apos;&lt;p&gt;Shadow DOM Content&lt;/p&gt;&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>上文使用attachShadow()方法创建的元素就是一个影子DOM，而其子内容就构成一棵影子树（shadow tree），而和影子DOM绑定，也就是包含该树的文档内元素通常称为影子主体（shadow host）。</p>
+<p>宿主元素的内容是不会被渲染的，我们可以通过slot来将内容映射到shadow dom中来显示，还可以通过设置name的属性来决定那一块被映射。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 页面 --&gt;</span><br><span class="line">&lt;div class=&quot;menus&quot;&gt;</span><br><span class="line"> &lt;slot&gt;&lt;/slot&gt;</span><br><span class="line"> &lt;slot name=&quot;top&quot;&gt;&lt;/slot&gt;</span><br><span class="line"> &lt;slot name=&quot;right&quot;&gt;&lt;/slot&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- shadow dom --&gt;</span><br><span class="line">&lt;h2&gt;Menus&lt;/h2&gt;</span><br><span class="line">&lt;ul slot=&quot;top&quot;&gt;</span><br><span class="line"> &lt;li&gt;Home&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;About&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;ul slot=&quot;right&quot;&gt;</span><br><span class="line"> &lt;li&gt;Home&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;Top&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+
+<p>渲染结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;menus&quot;&gt;</span><br><span class="line"> &lt;h2&gt;Menus&lt;/h2&gt;</span><br><span class="line"> &lt;ul&gt;</span><br><span class="line"> &lt;li&gt;Home&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;About&lt;/li&gt;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line"> &lt;ul&gt;</span><br><span class="line"> &lt;li&gt;Home&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;Top&lt;/li&gt;</span><br><span class="line"> &lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="样式的影响"><a href="#样式的影响" class="headerlink" title="样式的影响"></a>样式的影响</h4><p>Shadow Dom的样式被完全封装，内部的样式对外部完全没有影响。文档流中的样式也对内部没有影响。这一点其实很重要。因为只有这样，才能保证组件的无伤。但是我们使用过程中肯定也会想要有时对shadow dom中的样式进行一定的改写的。Shadow Dom提供了这样的接口。</p>
+<p>1.组件-&gt;影响文档流</p>
+<p>组件内部只能使用:host来改变宿主元素的样式，页面的其他内容也是无法影响的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:host(x-foo:host) &#123;</span><br><span class="line"> /* 当宿主是 &lt;x-foo&gt; 元素时生效。 */</span><br><span class="line">&#125;</span><br><span class="line">:host(div) &#123; &#123;</span><br><span class="line"> /* 当宿主或宿主的祖先元素是&lt;div&gt; 元素时生效。 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.文档流-&gt;组件</p>
+<p>文档流可以通过::shadow或者/deep/来影响组件的样式。如果想要修整content元素的样式，使用::content。chrome自己使用了&lt;&lt;和&lt;&lt;&lt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">::shadow和/deep/</span><br><span class="line">&lt;style&gt;</span><br><span class="line"> #host ::shadow span &#123;</span><br><span class="line"> color: red;</span><br><span class="line"> &#125;</span><br><span class="line"> #host /deep/ span &#123;</span><br><span class="line"> color: red;</span><br><span class="line"> &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">/*为了与content一起使用的话::content*/</span><br></pre></td></tr></table></figure>
+
+<p>因为CSS目前还是全局作用域的,Shadow Dom的CSS封装很好的解决了现在CSS的一个大问题.</p>
+<h4 id="事件的封装"><a href="#事件的封装" class="headerlink" title="事件的封装"></a>事件的封装</h4><p>Shadow Dom对于事件通过在冒泡阶段target的重定向来封装事件，然后一些可能对页面造成影响的事件，Shadow Dom就会影藏掉这些事件，也就是在冒泡到主页面的过程中被挡住了。</p>
+<p><img src="/2020/03/20/WebComponents/1.png" alt="图片"></p>
+<p>就像图中所示，普通点击时，target会是我们真正点击的元素，而Shadow Dom则会将事件的target重定向到宿主元素身上，主要是为了保证组件内部的封装。多层宿主的时候，每层都会重定向到自己的宿主身上。</p>
+<p>还有一些事件不会冒泡到主文档流：abort, error, select, change, load, loadedmetadata, reset, resize,scroll and selectstart。</p>
+<h4 id="Shadom-Dom与Virtual-Dom的比较"><a href="#Shadom-Dom与Virtual-Dom的比较" class="headerlink" title="Shadom Dom与Virtual Dom的比较"></a>Shadom Dom与Virtual Dom的比较</h4><p>Shadow Dom是W3c的规范，它主要被我们用来处理Dom树之间的关系，他的主要思想是封装。它本身还是Dom。</p>
+<p>我们平常操作Dom的时候很多时候刷新操作就是将一块HTML替换，我们的操作会触发大量的repaint和reflow，这些操作都是很耗浏览器性能的。Virtual Dom是将这些操作打包，并且通过一些Diff算法来得出如何通过最简单的方式改变成我们想要的模样。它本身是Dom的一层抽象，不是真实的Dom。</p>
+<h3 id="Template"><a href="#Template" class="headerlink" title="Template"></a>Template</h3><p>通过上面的Shadow Dom和Custom Elements，其实我们已经实现了组件的自定义以及封装。不过我们的模板最后一直使用的字符串。最后通过innerHtml的方式插入。包括现在其实JS模版其实全是这么实现的。这样子的坏处在于当我们多次使用一个模板的时候(比如刷新操作)，每次都得把一段字符串转化为DOM结构，这其实是很费浏览器的性能的。</p>
+<p>HTML模板定义了使用<template>标签声明可以通过脚本操作插入文档的HTML模板片段,<template>标签本质上与其他HTML内置标签一样，可以使用DOM API进行操作，但是需要明白，在将模板激活（生成DOM或插入文档）前：</template></template></p>
+<ul>
+<li><template>标签内的内容不会被渲染；</template></li>
+<li>标签内的图片，等媒体资源不会被加载；</li>
+<li>标签不会出现在DOM树，审查元素看不到；</li>
+</ul>
+<p>但是他又不是仅仅作为字符串存在。他是被解析成了Document Fragment。这样每次重用的时候就不会有解析为Dom这种浪费性能的操作。</p>
+<h3 id="Html-Imports"><a href="#Html-Imports" class="headerlink" title="Html Imports"></a>Html Imports</h3><p>现在我们需要的就是将这个组件打包出去。那么如何在HTML文档中引入另一个web文档或web组件呢？像JSP或PHP语言都对HTML语法进行了拓展，我们可以使用诸如<include>标签直接引入另一个文档，然而在这之前，原生HTML<br>规范并不支持直接引入另一文档，通常都得通过ajax请求另一文档内容，然后通过JavaScript使用DOM API将内容插入，对于组件化开发和使用，这样显然不是我们期望的结果，这与组件的易用性是背离的，所以，HTML imports定义了如何在文档内引入和重用另一文档。</include></p>
+<p>在文档内直接引入外链资源的文档或web组件，语法如下，使用<link>标签：</p>
+<p><code>&lt;link rel=&quot;import&quot; href=&quot;components.html&quot;&gt;</code></p>
+<p>假如在components.html中定义了got-top自定义元素，则在本文档内可以直接使用：</p>
+<p><code>&lt;go-top&gt;GoTop&lt;/go-top&gt;</code></p>
+<p>如上，仅仅将link标签的rel属性设置成import即可，另外值得注意的是：为了避免重复执行引入文档内的脚本，对于已加载文档，import方式将跳过其加载和执行过程。</p>
+<h3 id="Web-Components的兼容性"><a href="#Web-Components的兼容性" class="headerlink" title="Web Components的兼容性"></a>Web Components的兼容性</h3><p><img src="/2020/03/20/WebComponents/2.png" alt="兼容性"></p>
+<p>如图，chrome算是很激进了，安卓也得是比较新的版本。safari，IE，FF的支持都很差</p>
+<p><img src="/2020/03/20/WebComponents/3.png" alt="兼容性"></p>
+<p>这张图的意思的FF已经把Custom Elements和Shadow Dom立了development flag，将会去实现他。而Html Imports暂时hold on。这个和Safari暂时hold住了Custom Elements和Html Imports的原因一样。他们都觉得这个和ES6的modules解决的是同一个问题。他们在等待ES6的modules的实施效果。而最新的IE的申明则是，这三个规范都在思考中，应该是都会去实现。</p>
+<h3 id="Web-Components的polyfill"><a href="#Web-Components的polyfill" class="headerlink" title="Web Components的polyfill"></a>Web Components的polyfill</h3><p>也就是说这些个规范我们想单纯的使用时没有办法的。但是他是有组织提供了polyfill的。这个polyfill还是有很大的问题的，IE只能支持到IE11，而且shadow dom的CSS封装没有官方的支持也是没法完美实现的。</p>
+<h3 id="相关的框架"><a href="#相关的框架" class="headerlink" title="相关的框架"></a>相关的框架</h3><p>他的相关框架有Polymer，X-Tag，SKATEJS，Bosonic，这四个框架大部分都是对他的API的友好封装。Polymer是google出品，目前也是有15000的star的，比较火，除了封装了API，他还像Angular一样做了一层数据的双向绑定。但是这几个框架都是使用的上面的Polyfill，所以上面提高的问题他们也都有。</p>
+<h3 id="Web-Components与React"><a href="#Web-Components与React" class="headerlink" title="Web Components与React"></a>Web Components与React</h3><p>这里我想比较一下这两者。因为React官网文档专门有一篇解释他们两者解决的是不同的问题。</p>
+<p>Web Components个人感觉是HTML提出的模块化，他的目的是复用web组件，主要思想是封装。</p>
+<p>React是为了搭建交互式UI，主要是针对不同的状态显示不同的View，处理的是view与data同步。</p>
+<p>React官网文档也有实例如何在React中使用Web Components。其实就是在ComponentDidMount的时候初始化一下Web Components，很简单的使用。</p>
+<h3 id="Web-components-与-Vuejs"><a href="#Web-components-与-Vuejs" class="headerlink" title="Web components 与 Vuejs"></a>Web components 与 Vuejs</h3><p>这里还想提一下Vuejs，因为Vuejs自己也实现了CSS的模块化的，几乎是实现了一套Web components。他的组件的创建，注册，继承，生命周期都和Web components很像。看作者自己与其他框架比较的时候也说了，Vuejs和Polymer的区别就在于Vuejs不依赖于Web components，不需要polyfill。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>我觉得 Web Components作为浏览器底层特性不应该拿出来和React, vue 这类应用层框架相比较. Web Components 的方向以及提供的价值都不会跟 应用框架一致. 而 Web Components 作为未来的 Web 组件标准 , 它在任何生态中都可以运行良好. 我倒是更加期待应用层去基于 Web Components 去做更多的实现, 让组件超越框架存在, 可以在不同技术栈中使用.</p>
+<p>总体来说，Web component他是w3c标准，基本会是组件技术的最终方向，但是需要大量的时间来让来让浏览器支持。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Li Jingying</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://lijingying91.github.io/2020/03/20/WebComponents/">https://lijingying91.github.io/2020/03/20/WebComponents/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><strong>Hard Work</strong> Pays Off</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/01/02/module-exports和exports的区别/">module.exports和exports的区别</a>
+            
+        </section>
+
+
+    </article>
+
+    
+
+    
+        <div id="gitment_title" class="gitment_title">说些什么</div>
+<div id="container" style="display:none"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+
+<script src="https://billts.site/js/gitment.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  const myTheme = {
+    render(state, instance) {
+      const container = document.createElement('div');
+      container.lang = "zh-Hans";
+      container.className = 'gitment-container gitment-root-container';
+      container.appendChild(instance.renderHeader(state, instance));
+      container.appendChild(instance.renderEditor(state, instance));
+      container.appendChild(instance.renderComments(state, instance));
+      // container.appendChild(instance.renderFooter(state, instance));
+      return container;
+    }
+  }
+
+  function showGitment() {
+    $("#gitment_title").attr("style", "display:block");
+    $("#container").attr("style", "").addClass("gitment_container");
+    var gitment = new Gitment({
+      id: Date.parse('Fri Mar 20 2020 18:29:18 GMT+0800').toString(),
+      theme: myTheme,
+      owner: 'lijingying91',
+      repo: 'lijingying91.github.io',
+      oauth: {
+        client_id: '7c8f8bbc6b2e2491a4e8',
+        client_secret: '6dcd6d348349921a69ec3ead4177ebaefaf55be9'
+      }
+    });
+    gitment.render('container');
+  }
+
+  showGitment();
+</script>
+    
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Li Jingying | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
