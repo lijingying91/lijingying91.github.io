@@ -197,10 +197,10 @@
 <p><img src="/2020/05/22/web页面GPU渲染简介/1.png" alt="image1"></p>
 <p>CPU处理图像的痛点</p>
 <p><img src="/2020/05/22/web页面GPU渲染简介/2.png" alt="image2"></p>
+<p>GPU的结构处理图像的优势</p>
+<p><img src="/2020/05/22/web页面GPU渲染简介/3.png" alt="image3"></p>
 </li>
 </ul>
-<p>  GPU的结构处理图像的优势</p>
-<p>  <img src="/2020/05/22/web页面GPU渲染简介/3.png" alt="image3"></p>
 <h2 id="如何在web页面上控制GPU渲染图像"><a href="#如何在web页面上控制GPU渲染图像" class="headerlink" title="如何在web页面上控制GPU渲染图像"></a>如何在web页面上控制GPU渲染图像</h2><ul>
 <li><p>canvas与webGL技术</p>
 <p>HTML</p>
@@ -209,7 +209,9 @@
 
 </li>
 </ul>
-<p>  JS<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const canvas = document.getElementById(&apos;myCanvas&apos;)</span><br><span class="line">// 普通的canvas上下文</span><br><span class="line">// const gl = canvas.getContext(&apos;2d&apos;)</span><br><span class="line">// webgl上下文</span><br><span class="line">const gl = canvas.getContext(&apos;webgl&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>  JS</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const canvas = document.getElementById(&apos;myCanvas&apos;)</span><br><span class="line">// 普通的canvas上下文</span><br><span class="line">// const gl = canvas.getContext(&apos;2d&apos;)</span><br><span class="line">// webgl上下文</span><br><span class="line">const gl = canvas.getContext(&apos;webgl&apos;)</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><p>Javascript 与 GLSL ES</p>
 <p>一个webGL程序的工作过程是 Javascript使用webGL API传数据给GLSL ES，GLSL ES在GPU中渲染图像。</p>
@@ -218,15 +220,15 @@
 <p><img src="/2020/05/22/web页面GPU渲染简介/4.png" alt="image4"></p>
 <p>更详细的图看下面</p>
 <p><img src="/2020/05/22/web页面GPU渲染简介/4.png" alt="image4"></p>
+<p>其中顶点着色器和片元着色器是可编程的，它们都是使用GLSL ES语言写的一段程序</p>
 </li>
 </ul>
-<p>  其中顶点着色器和片元着色器是可编程的，它们都是使用GLSL ES语言写的一段程序</p>
 <h2 id="webGL框架"><a href="#webGL框架" class="headerlink" title="webGL框架"></a>webGL框架</h2><p>  给着色器传数据的webGL API很底层很繁琐，使用框架更方便，twgl是一种轻量级的框架。</p>
 <h2 id="片元着色器栗子"><a href="#片元着色器栗子" class="headerlink" title="片元着色器栗子"></a>片元着色器栗子</h2><p>  输入：canvas画布尺寸、时间、鼠标位置</p>
 <p>  输出：颜色通道</p>
 <p>  片元着色器是并行执行的，屏幕上每个像素都是一个线程，都要执行着色器程序代码，而且相互之间是盲视的。</p>
 <p>  <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
-<h4 id="一些资源推荐："><a href="#一些资源推荐：" class="headerlink" title="一些资源推荐："></a>一些资源推荐：</h4><ol>
+<h4 id="一些资源推荐"><a href="#一些资源推荐" class="headerlink" title="一些资源推荐"></a>一些资源推荐</h4><ol>
 <li>一个入门shader的网站 <a href="https://thebookofshaders.com" target="_blank" rel="noopener">https://thebookofshaders.com</a></li>
 <li>罗列了很多webGL的模块 <a href="http://stack.gl/" target="_blank" rel="noopener">http://stack.gl/</a></li>
 <li>一个轻量的webGL库 <a href="http://twgljs.org/" target="_blank" rel="noopener">http://twgljs.org/</a></li>
